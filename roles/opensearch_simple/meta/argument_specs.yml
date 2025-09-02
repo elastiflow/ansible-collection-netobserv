@@ -1,0 +1,25 @@
+argument_specs:
+  main:
+    short_description: |
+      "simple" role to install OpenSearch using the modified docker-compose file from the official [Docker Compose doc](https://docs.opensearch.org/docs/latest/install-and-configure/install-opensearch/docker/#sample-docker-composeyml)
+    options:
+      opensearch_version:
+        type: str
+        default: "3.2.0"
+        description: |
+          OpenSearch version
+      opensearch_jvm_heap_size:
+        type: str
+        default: "5g"
+        description: |
+          JVM heap size
+      opensearch_mem_limit:
+        type: str
+        default: "10g"
+        description: |
+          OpenSearch container memory limit. Should be roughly twice of the jvm_heap_size
+      opensearch_initial_password:
+        type: str
+        default: "Strong1pass!"
+        description: |
+          OpenSearch initial password for the default admin `elastic` user

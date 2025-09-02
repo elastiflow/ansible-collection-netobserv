@@ -1,0 +1,30 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "dependencyDashboard": true,
+  "automerge": false,
+  "extends": [
+    "config:recommended"
+  ],
+  "schedule": [
+    "* 17 1-7 * 1"
+  ],
+  "reviewers": [
+    "team:ops"
+  ],
+  "labels": [
+    "tf-modules"
+  ],
+  "pre-commit": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "matchManagers": [
+        "pre-commit"
+      ],
+      "groupName": "Pre-commit",
+      "groupSlug": "pre-commit",
+      "automerge": false
+    }
+  ]
+}

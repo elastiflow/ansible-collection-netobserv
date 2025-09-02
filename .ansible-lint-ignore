@@ -1,0 +1,14 @@
+# This file contains ignores rule violations for ansible-lint
+roles/_collector_install role-name # "meta" role, to be used in other roles internally
+roles/_collector_install/defaults/main.yml var-naming[no-role-prefix] # Ignoring to make var definitions really short in the "meta" role
+roles/_validate_vars role-name # "meta" role, to be used in other roles internally
+roles/elasticsearch_simple/defaults/main.yml var-naming[no-role-prefix] # Intentionally ignoring in "simple" roles
+roles/opensearch_simple/defaults/main.yml var-naming[no-role-prefix] # Intentionally ignoring in "simple" roles
+# "meta" specs
+roles/_collector_install/meta/main.yml schema[meta] # Meta is mainly used for the docs generation
+roles/netobserv_flow/meta/main.yml schema[meta] # Meta is mainly used for the docs generation
+roles/netobserv_trap/meta/main.yml schema[meta] # Meta is mainly used for the docs generation
+roles/elasticsearch_simple/meta/main.yml schema[meta] # Meta is mainly used for the docs generation
+roles/elasticsearch_simple/meta/argument_specs.yml yaml[line-length] # Meta is mainly used for the docs generation
+roles/opensearch_simple/meta/main.yml schema[meta] # Meta is mainly used for the docs generation
+roles/opensearch_simple/meta/argument_specs.yml yaml[line-length] # Meta is mainly used for the docs generation

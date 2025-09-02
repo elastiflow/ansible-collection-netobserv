@@ -1,0 +1,8 @@
+---
+- name: Restart OpenSearch
+  community.docker.docker_compose_v2:
+    state: restarted
+    project_src: "{{ _opensearch_simple_compose_file.dest | dirname }}"
+    wait: true
+    files:
+      - "{{ _opensearch_simple_compose_file.dest | basename }}"

@@ -1,0 +1,23 @@
+---
+# Using default value from Ubuntu24.04,  https://docs.opensearch.org/docs/1.0/opensearch/install/important-settings/
+- name: Increase virtual memory
+  ansible.posix.sysctl:
+    name: vm.max_map_count
+    value: 1048576
+    sysctl_set: true
+- name: Render OpenSearch docker-compose file
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "/root/docker-compose-os.yml"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  notify: Restart OpenSearch
+  register: _opensearch_simple_compose_file
+- name: Run OpenSearch
+  community.docker.docker_compose_v2:
+    state: present
+    project_src: "{{ _opensearch_simple_compose_file.dest | dirname }}"
+    wait: true
+    files:
+      - "{{ _opensearch_simple_compose_file.dest | basename }}"

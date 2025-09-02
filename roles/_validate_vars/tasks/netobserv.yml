@@ -1,0 +1,133 @@
+# TODO: Add unit tests for the conditions
+- name: Validate NetObserv common config options
+  become: false
+  delegate_to: localhost
+  block:
+    - name: Validate API TLS
+      ansible.builtin.assert:
+        quiet: true
+        msg: "If API TLS is enabled, cert and key file paths must be set"
+        that:
+          - >-
+            netobserv_common_config_api.tls.enable
+            and netobserv_common_config_api.tls.cert_filepath | length != 0
+            and netobserv_common_config_api.tls.key_filepath | length != 0
+      when: netobserv_common_config_api.tls.enable
+    - name: Validate API Basic Auth
+      ansible.builtin.assert:
+        quiet: true
+        msg: "If API Basic Auth is enabled, username and password must be set"
+        that:
+          - >-
+            netobserv_common_config_api.basic_auth_enable
+            and netobserv_common_config_api.basic_auth_username | length != 0)
+            and (netobserv_common_config_api.basic_auth_password | length != 0
+      when: netobserv_common_config_api.basic_auth_enable
+    - name: Validate ElasticSearch output
+      block:
+        - name: Validate ElasticSearch TLS
+          ansible.builtin.assert:
+            quiet: true
+            msg: "If ElasticSearch TLS Client auth (mTLS) is enabled, cert and key file paths must be set"
+            that:
+              - >-
+                netobserv_common_config_output_elasticsearch.tls.client_cert_filepath | length != 0
+                and netobserv_common_config_output_elasticsearch.tls.client_key_filepath | length != 0
+          when: >-
+            netobserv_common_config_output_elasticsearch.enable
+            and netobserv_common_config_output_elasticsearch.tls.enable
+            and netobserv_common_config_output_elasticsearch.tls.client_cert_filepath | length != 0
+            or netobserv_common_config_output_elasticsearch.tls.client_key_filepath | length != 0
+    - name: Validate OpenSearch output
+      block:
+        - name: Validate OpenSearch TLS
+          ansible.builtin.assert:
+            quiet: true
+            msg: "If OpenSearch TLS Client auth (mTLS) is enabled, cert and key file paths must be set"
+            that:
+              - >-
+                netobserv_common_config_output_opensearch.tls.client_cert_filepath | length != 0
+                and netobserv_common_config_output_opensearch.tls.client_key_filepath | length != 0
+          when: >-
+            netobserv_common_config_output_opensearch.enable
+            and netobserv_common_config_output_opensearch.tls.enable
+            and netobserv_common_config_output_opensearch.tls.client_cert_filepath | length != 0
+            or netobserv_common_config_output_opensearch.tls.client_key_filepath | length != 0
+        - name: Validate OpenSearch AWS credentials
+          ansible.builtin.assert:
+            quiet: true
+            msg: "If an AWS access key is provided for AWS OpenSearch, a corresponding AWS secret key must also be provided, and vice versa."
+            that:
+              - >-
+                netobserv_common_config_output_opensearch.aws.access_key != None
+                and netobserv_common_config_output_opensearch.aws.secret_key != None
+          when: >-
+            netobserv_common_config_output_opensearch.enable
+            and netobserv_common_config_output_opensearch.aws.access_key != None
+            or netobserv_common_config_output_opensearch.aws.secret_key != None
+# TODO: Add unit tests for the conditions
+- name: Validate NetObserv Flow config options
+  when: validate_netobserv_flow
+  become: false
+  delegate_to: localhost
+  block:
+    - name: AWS VPC Flow Logs (Firehose) input config options
+      block:
+        - name: Validate AWS Firehose HTTP
+          ansible.builtin.assert:
+            quiet: true
+            msg: "If AWS VPC Flow Log Firehose input is enabled, access key and log format must be set"
+            that:
+              - >-
+                netobserv_flow_config_input_aws_vpc_flow_log_firehose.http_access_key | length != 0
+                and netobserv_flow_config_input_aws_vpc_flow_log_firehose.http_log_format | length != 0
+          when: netobserv_flow_config_input_aws_vpc_flow_log_firehose.http_enable
+        - name: Validate AWS Firehose HTTP TLS
+          ansible.builtin.assert:
+            quiet: true
+            msg: "If AWS VPC Flow Log Firehose input is enabled, API TLS must be enabled and cert and key file paths must be set"
+            that:
+              - >-
+                  netobserv_flow_config_api.tls.enable
+                  and netobserv_flow_config_api.tls.cert_filepath | length != 0
+                  and netobserv_flow_config_api.tls.key_filepath | length != 0
+          when: netobserv_flow_config_input_aws_vpc_flow_log_firehose.http_enable
+    - name: AWS VPC Flow Logs (S3) input config options
+      block:
+        - name: Validate AWS S3 Kinesis
+          ansible.builtin.assert:
+            quiet: true
+            msg: "If AWS VPC Flow Logs (S3) enabled, log format must be set"
+            that:
+              - netobserv_flow_config_input_aws_vpc_flow_log_s3.firehose_s3_log_format | length != 0
+          when: netobserv_flow_config_input_aws_vpc_flow_log_s3.firehose_s3_enable
+        - name: Validate AWS S3 credentials
+          ansible.builtin.assert:
+            quiet: true
+            msg: "If an AWS access key is provided for AWS VPC Flow Logs (S3), a corresponding AWS secret key must also be provided, and vice versa."
+            that:
+              - >-
+                netobserv_flow_config_input_aws_vpc_flow_log_s3.aws.access_key != None
+                and netobserv_flow_config_input_aws_vpc_flow_log_s3.aws.secret_key != None
+          when: >-
+            netobserv_flow_config_input_aws_vpc_flow_log_s3.enable
+            and netobserv_flow_config_input_aws_vpc_flow_log_s3.aws.access_key != None
+            or netobserv_flow_config_input_aws_vpc_flow_log_s3.aws.secret_key != None
+    - name: Validate additional config value and local config path
+      elastiflow.netobserv.ensure_single_config_source:
+        config_values: "{{ item.config_values }}"
+        config_path: "{{ item.config_path }}"
+        vars: "{{ vars }}"
+      loop:
+        - config_values: netobserv_flow_config_processor_enrich_app.ipport_config_values
+          config_path: netobserv_flow_config_processor_enrich_app.ipport_config_local_path
+        - config_values: netobserv_flow_config_processor_enrich_ipaddr_dns.userdef_config_values
+          config_path: netobserv_flow_config_processor_enrich_ipaddr_dns.userdef_config_local_path
+        - config_values: netobserv_flow_config_processor_enrich_ipaddr_dns.inclexcl_config_values
+          config_path: netobserv_flow_config_processor_enrich_ipaddr_dns.inclexcl_config_local_path
+        - config_values: netobserv_flow_config_processor_enrich_ipaddr_maxmind.geoip_inclexcl_config_values
+          config_path: netobserv_flow_config_processor_enrich_ipaddr_maxmind.geoip_inclexcl_config_local_path
+        - config_values: netobserv_flow_config_processor_enrich_ipaddr_metadata.userdef_config_values
+          config_path: netobserv_flow_config_processor_enrich_ipaddr_metadata.userdef_config_local_path
+        - config_values: netobserv_flow_config_processor_enrich_netif_metadata.userdef_config_values
+          config_path: netobserv_flow_config_processor_enrich_netif_metadata.userdef_config_local_path

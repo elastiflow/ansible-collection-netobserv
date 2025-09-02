@@ -1,0 +1,53 @@
+volumes:
+  opensearch-data1:
+
+services:
+  opensearch-node:
+    image: opensearchproject/opensearch:{{ opensearch_version }}
+    container_name: opensearch-node
+    environment:
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-node
+      - discovery.seed_hosts=opensearch-node
+      - cluster.initial_cluster_manager_nodes=opensearch-node
+      - cluster.default_number_of_replicas=0 # prevent "yellow" status
+      - bootstrap.memory_lock=true
+      - OPENSEARCH_INITIAL_ADMIN_PASSWORD={{ opensearch_initial_password }}
+      - OPENSEARCH_JAVA_OPTS=-Xms{{ opensearch_jvm_heap_size }} -Xmx{{ opensearch_jvm_heap_size }}
+    mem_limit: "{{ opensearch_mem_limit | human_to_bytes }}"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    volumes:
+      - opensearch-data1:/usr/share/opensearch/data
+    ports:
+      - 9200:9200
+      - 9600:9600
+    healthcheck:
+      test:
+        - "CMD-SHELL"
+        - "curl -ks 'https://admin:{{ opensearch_initial_password }}@localhost:9200/_cluster/health' | grep -E 'green|yellow'"
+      interval: 10s
+      timeout: 10s
+      retries: 120
+  opensearch-dashboards:
+    depends_on:
+      opensearch-node:
+        condition: service_healthy
+    image: opensearchproject/opensearch-dashboards:{{ opensearch_version }}
+    container_name: opensearch-dashboards
+    ports:
+      - 5601:5601
+    environment:
+      OPENSEARCH_HOSTS: '["https://opensearch-node:9200"]' # Define the OpenSearch nodes that OpenSearch Dashboards will query
+    healthcheck:
+      test:
+        - "CMD-SHELL"
+        - "curl -s -I 'http://admin:{{ opensearch_initial_password }}@localhost:5601/api/status' | grep -q 'HTTP/1.1 200 OK'"
+      interval: 10s
+      timeout: 10s
+      retries: 120

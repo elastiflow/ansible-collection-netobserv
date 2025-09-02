@@ -1,0 +1,8 @@
+---
+- name: Restart ElasticSearch
+  community.docker.docker_compose_v2:
+    state: restarted
+    project_src: "{{ _elasticsearch_simple_compose_file.dest | dirname }}"
+    wait: true
+    files:
+      - "{{ _elasticsearch_simple_compose_file.dest | basename }}"

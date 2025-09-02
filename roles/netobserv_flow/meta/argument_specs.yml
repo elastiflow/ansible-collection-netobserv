@@ -1,0 +1,1350 @@
+argument_specs:
+  main:
+    short_description: |
+      Default variables for the NetObserv Flow role, configuring flow collection, enrichment, and output for ElastiFlow.
+      Please see full documentation for:
+      * [Common Options](https://www.elastiflow.com/docs/category/configuration-reference/category/common-options)
+      * [NetObserv Flow exclusive options](https://www.elastiflow.com/docs/category/configuration-reference/category/net-observ-flow)
+    options:
+      netobserv_flow_install:
+        type: bool
+        default: true
+        description: |
+          Whether to install NetObserv Flow.
+
+      netobserv_flow_version:
+        type: str
+        default: "1:7.13.1-1"
+        description: |
+          NetObserv Flow version to install.
+
+      netobserv_flow_config_dir:
+        type: str
+        default: "/etc/elastiflow"
+        description: |
+          Directory for NetObserv Flow configuration files.
+
+      netobserv_flow_validate_vars:
+        type: bool
+        default: true
+        description: |
+          Validate variables before applying configuration.
+
+      netobserv_flow_config_file:
+        type: str
+        default: "{{ netobserv_flow_config_dir }}/flowcoll.yml"
+        description: |
+          Main configuration file for NetObserv Flow.
+
+      netobserv_flow_config_data_path:
+        type: str
+        default: "/var/lib/elastiflow/flowcoll"
+        description: |
+          Data path for NetObserv Flow runtime data.
+
+      netobserv_flow_config_license:
+        type: dict
+        description: |
+          License configuration for NetObserv Flow collector.
+          See: https://www.elastiflow.com/docs/config_ref/common/license
+          ***defaults_prefix:"__"***
+        options:
+          accepted:
+            type: bool
+            default: true
+            description: Accept the ElastiFlow license agreement.
+          account_id:
+            type: str
+            default: null
+            description: ElastiFlow account ID.
+          license_key:
+            type: str
+            default: null
+            description: ElastiFlow license key.
+
+      netobserv_flow_config_logger:
+        type: dict
+        description: |
+          Logging configuration for NetObserv Flow collector.
+          See: https://www.elastiflow.com/docs/config_ref/common/logging
+          ***defaults_prefix:"__"***
+        options:
+          level:
+            type: str
+            default: "info"
+            description: Log level (e.g., info, debug, warn, error).
+          encoding:
+            type: str
+            default: "json"
+            description: Log encoding format.
+          file_log_enable:
+            type: bool
+            default: false
+            description: Enable logging to file.
+          file_log_filename:
+            type: str
+            default: "/var/log/elastiflow/flowcoll/flowcoll.log"
+            description: Log file path.
+          file_log_max_size:
+            type: int
+            default: 100
+            description: Maximum log file size in MB.
+          file_log_max_age:
+            type: str
+            default: ""
+            description: Maximum age of log files before rotation.
+          file_log_max_backups:
+            type: int
+            default: 4
+            description: Maximum number of log file backups.
+          file_log_compress:
+            type: bool
+            default: false
+            description: Compress rotated log files.
+
+      netobserv_flow_config_api:
+        type: dict
+        description: |
+          API server configuration for NetObserv Flow collector.
+          See: https://www.elastiflow.com/docs/config_ref/common/api
+          ***defaults_prefix:"__"***
+        options:
+          instance_name:
+            type: str
+            default: "{{ ansible_hostname }}"
+            description: Name of the API instance.
+          ip:
+            type: str
+            default: "0.0.0.0"
+            description: API server IP address.
+          port:
+            type: int
+            default: 8080
+            description: API server port.
+          tls:
+            type: dict
+            description: TLS configuration for API server.
+            options:
+              enable:
+                type: bool
+                default: false
+                description: Enable TLS for API server.
+              cert_filepath:
+                type: str
+                default: ""
+                description: Path to TLS certificate file.
+              key_filepath:
+                type: str
+                default: ""
+                description: Path to TLS key file.
+          basic_auth_enable:
+            type: bool
+            default: false
+            description: Enable basic authentication for API.
+          basic_auth_username:
+            type: str
+            default: ""
+            description: Username for basic authentication.
+          basic_auth_password:
+            type: str
+            default: ""
+            description: Password for basic authentication.
+
+      netobserv_flow_config_processor:
+        type: dict
+        description: |
+          Common processor configuration for NetObserv Flow collector.
+          See: https://www.elastiflow.com/docs/config_ref/common/processor
+          ***defaults_prefix:"__"***
+        options:
+          pool_size:
+            type: int
+            default: 0
+            description: Number of processor threads.
+          translate_keep_ids:
+            type: str
+            default: "default"
+            description: ID translation mode.
+          duration_precision:
+            type: str
+            default: "ms"
+            description: Duration precision (ms, s, etc.).
+          timestamp_precision:
+            type: str
+            default: "ms"
+            description: Timestamp precision (ms, s, etc.).
+          percent_norm:
+            type: int
+            default: 100
+            description: Normalization percentage.
+          keep_cpu_ticks:
+            type: bool
+            default: false
+            description: Keep CPU tick counters.
+          drop_fields:
+            type: str
+            default: ""
+            description: Fields to drop from records.
+          decode_ipfix_enable:
+            type: bool
+            default: true
+            description: Enable IPFIX decoding.
+          decode_netflow1_enable:
+            type: bool
+            default: true
+            description: Enable NetFlow v1 decoding.
+          decode_netflow5_enable:
+            type: bool
+            default: true
+            description: Enable NetFlow v5 decoding.
+          decode_netflow6_enable:
+            type: bool
+            default: true
+            description: Enable NetFlow v6 decoding.
+          decode_netflow7_enable:
+            type: bool
+            default: true
+            description: Enable NetFlow v7 decoding.
+          decode_netflow9_enable:
+            type: bool
+            default: true
+            description: Enable NetFlow v9 decoding.
+          decode_sflow5_enable:
+            type: bool
+            default: true
+            description: Enable sFlow v5 decoding.
+          decode_sflow_flows_enable:
+            type: bool
+            default: true
+            description: Enable sFlow flows decoding.
+          decode_sflow_flows_keep_samples:
+            type: bool
+            default: false
+            description: Keep sFlow flow samples.
+          decode_sflow_counters_enable:
+            type: bool
+            default: true
+            description: Enable sFlow counters decoding.
+          decode_max_records_per_packet:
+            type: int
+            default: 64
+            description: Maximum records per packet.
+          enrich_asn_pref:
+            type: str
+            default: "lookup"
+            description: ASN enrichment preference.
+          enrich_join_asn:
+            type: bool
+            default: true
+            description: Join ASN enrichment.
+          enrich_join_geoip:
+            type: bool
+            default: true
+            description: Join GeoIP enrichment.
+          enrich_join_netattr:
+            type: bool
+            default: true
+            description: Join network attribute enrichment.
+          enrich_join_subnetattr:
+            type: bool
+            default: true
+            description: Join subnet attribute enrichment.
+          enrich_join_sec:
+            type: bool
+            default: true
+            description: Join security enrichment.
+          expand_clisrv:
+            type: bool
+            default: true
+            description: Expand client/server fields.
+          expand_clisrv_no_l4_ports:
+            type: bool
+            default: true
+            description: Expand client/server fields without L4 ports.
+          ifa_enable:
+            type: bool
+            default: false
+            description: Enable IFA enrichment.
+          ifa_worker_size:
+            type: int
+            default: null
+            description: IFA worker pool size.
+          enrich_samplerate_cache_size:
+            type: int
+            default: 32768
+            description: Sample rate cache size.
+          enrich_samplerate_userdef_enable:
+            type: bool
+            default: false
+            description: Enable user-defined sample rate.
+          enrich_samplerate_userdef_path:
+            type: str
+            default: "/etc/elastiflow/settings/sample_rate.yml"
+            description: Path to user-defined sample rate config.
+          enrich_samplerate_userdef_override:
+            type: bool
+            default: false
+            description: Override sample rate with user-defined config.
+          enrich_samplerate_userdef_config_values:
+            type: dict
+            default: {}
+            description: |
+              Inline user-defined sample rate config values. Example:
+              ```yaml
+              192.0.2.1: 1024
+              192.0.2.2: 512
+              192.0.2.0-192.0.2.255: 256
+              192.0.2.0/24: 128
+
+              # global sample rate
+              "0.0.0.0/0": 56
+              ```
+
+      netobserv_flow_config_processor_enrich_totals_if_no_deltas:
+        type: bool
+        default: false
+        description: |
+          See: https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_general
+
+      netobserv_flow_config_processor_enrich_app:
+        type: dict
+        description: |
+          See: https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_apps
+          ***defaults_prefix:"__"***
+        options:
+          id_enable:
+            type: bool
+            default: false
+            description: Enable application ID enrichment.
+          id_path:
+            type: str
+            default: "/etc/elastiflow/app/appid.yml"
+            description: Path to application ID config.
+          id_ttl:
+            type: int
+            default: 7200
+            description: TTL for application ID cache.
+          ipport_enable:
+            type: bool
+            default: false
+            description: Enable application IP/port enrichment.
+          ipport_path:
+            type: str
+            default: "/etc/elastiflow/app/ipport.yml"
+            description: Path to application IP/port config.
+          ipport_config_values:
+            type: dict
+            default: {}
+            description: |
+              Inline application IP/port config values. Example:
+              ```yaml
+              192.168.1.0/24:
+                8090:
+                  name: "Synergy-cidr-port"
+                  category: "category-cidr-port"
+                  subcategory: "subcategory-cidr-port"
+                  metadata:
+                    ".location": "austin-cidr-port"
+                    "business.unit": "finance-cidr-port"
+                    "dev.unit": "dev-cidr-port"
+                    "app.count": 27
+              ```
+          ipport_config_local_path:
+            type: str
+            default: null
+            description: Local path for application IP/port config.
+          ipport_ttl:
+            type: int
+            default: 7200
+            description: TTL for application IP/port cache.
+          ipport_private:
+            type: bool
+            default: true
+            description: Enable private IP/port enrichment.
+          ipport_public:
+            type: bool
+            default: false
+            description: Enable public IP/port enrichment.
+          refresh_rate:
+            type: int
+            default: 15
+            description: Refresh rate in minutes.
+
+      netobserv_flow_config_processor_enrich_ipaddr_dns:
+        type: dict
+        description: |
+          IP address DNS enrichment configuration.
+          See: https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_ip_hostname
+          ***defaults_prefix:"__"***
+        options:
+          enable:
+            type: bool
+            default: false
+            description: Enable DNS enrichment.
+          nameserver_ip:
+            type: str
+            default: null
+            description: Nameserver IP address.
+          nameserver_timeout:
+            type: int
+            default: 3000
+            description: Nameserver timeout in milliseconds.
+          resolve_private:
+            type: bool
+            default: true
+            description: Resolve private IP addresses.
+          resolve_public:
+            type: bool
+            default: true
+            description: Resolve public IP addresses.
+          userdef_path:
+            type: str
+            default: null
+            description: Path to user-defined hostname config.
+          userdef_config_values:
+            type: dict
+            default: {}
+            description: |
+              Inline user-defined hostname config values. Example:
+              ```yaml
+              192.0.2.1: "host1"
+              192.0.2.2: "host2"
+              ```
+          userdef_config_local_path:
+            type: str
+            default: null
+            description: Local path for user-defined hostname config.
+          userdef_refresh_rate:
+            type: int
+            default: 15
+            description: Refresh rate in minutes for user-defined hostname config.
+          inclexcl_path:
+            type: str
+            default: ""
+            description: Path to include/exclude config.
+          inclexcl_config_values:
+            type: dict
+            default: {}
+            description: |
+              Inline include/exclude config values. Example:
+              ```yaml
+              include:
+                asn:
+                  - 14168
+                cidr:
+                  - 10.0.0.0/8
+                  - 192.168.0.0/16
+              exclude:
+                #asn:
+                #  -
+                cidr:
+                  - 192.168.100.0/24
+              ```
+          inclexcl_config_local_path:
+            type: str
+            default: null
+            description: Local path for include/exclude config.
+          inclexcl_refresh_rate:
+            type: int
+            default: 15
+            description: Refresh rate in minutes for include/exclude config.
+
+      netobserv_flow_config_processor_enrich_ipaddr_maxmind:
+        type: dict
+        description: |
+          IP address GeoIP enrichment configuration.
+          See: https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_ip_maxmind
+          ***defaults_prefix:"__"***
+        options:
+          asn_enable:
+            type: bool
+            default: false
+            description: Enable ASN enrichment.
+          asn_path:
+            type: str
+            default: "/etc/elastiflow/maxmind/GeoLite2-ASN.mmdb"
+            description: Path to ASN database.
+          geoip_enable:
+            type: bool
+            default: false
+            description: Enable GeoIP enrichment.
+          geoip_path:
+            type: str
+            default: "/etc/elastiflow/maxmind/GeoLite2-City.mmdb"
+            description: Path to GeoIP database.
+          geoip_values:
+            type: str
+            default: "city,country,country_code,location,timezone"
+            description: GeoIP values to extract.
+          geoip_lang:
+            type: str
+            default: "en"
+            description: GeoIP language.
+          geoip_inclexcl_path:
+            type: str
+            default: ""
+            description: Path to GeoIP include/exclude config.
+          geoip_inclexcl_config_values:
+            type: dict
+            default: {}
+            description: |
+              Inline GeoIP include/exclude config values. Example:
+              ```yaml
+              include:
+                asn:
+                  - 14168
+                cidr:
+                  - 10.0.0.0/8
+                  - 192.168.0.0/16
+              exclude:
+                #asn:
+                #  -
+                cidr:
+                  - 192.168.100.0/24
+              ```
+          geoip_inclexcl_config_local_path:
+            type: str
+            default: null
+            description: Local path for GeoIP include/exclude config.
+          geoip_inclexcl_refresh_rate:
+            type: int
+            default: 15
+            description: Refresh rate in minutes for GeoIP include/exclude config.
+
+      netobserv_flow_config_processor_enrich_ipaddr_netintel:
+        type: dict
+        description: |
+          NetIntel enrichment configuration.
+          See: https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_ip_netintel
+          ***defaults_prefix:"__"***
+        options:
+          enable:
+            type: bool
+            default: true
+            description: Enable NetIntel enrichment.
+          as_prefix_precision:
+            type: str
+            default: "exact"
+            description: |
+              It's possible for an Autonomous system to house other Autonomous systems.
+              Therefore, a user can either get the most specific AS prefix or all the prefixes for all the Autonomous systems a packet went through.
+          threat_collection_path:
+            type: str
+            default: ""
+            description: Path to threat collection.
+          ip_db_path:
+            type: str
+            default: ""
+            description: Path to IP database.
+
+      netobserv_flow_config_processor_enrich_ipaddr_metadata:
+        type: dict
+        description: |
+          User-defined IP metadata enrichment configuration.
+          See: https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_ip_udm/
+          ***defaults_prefix:"__"***
+        options:
+          enable:
+            type: bool
+            default: false
+            description: Enable user-defined IP metadata enrichment.
+          userdef_path:
+            type: str
+            default: null
+            description: Path to user-defined IP metadata config.
+          userdef_config_values:
+            type: dict
+            default: {}
+            description: |
+              Inline user-defined IP metadata config values. Example:
+              ```yaml
+              # Specify whether the IP/CIDR/Range is considered to be "internal".
+              192.0.2.0/24:
+                internal: true
+
+              # Additional options are name, vlan, tags and metadata.
+              192.0.2.192/26:
+                name: atlanta_guest_wifi
+                vlan: 1001
+                tags:
+                  - wifi
+                  - dhcp
+                metadata:
+                  dhcp.pool.name: atlanta_guest_wifi
+                  .site.id: atlanta
+              ```
+          userdef_config_local_path:
+            type: str
+            default: null
+            description: Local path for user-defined IP metadata config.
+          refresh_rate:
+            type: int
+            default: 15
+            description: Refresh rate in minutes.
+
+      netobserv_flow_config_processor_enrich_netif_flow_options_enable:
+        type: bool
+        default: true
+        description: |
+          See: https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_netif_options
+
+      netobserv_flow_config_processor_enrich_netif_snmp:
+        type: dict
+        description: |
+          SNMP-based network interface enrichment configuration.
+          See: https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_netif_snmp
+          ***defaults_prefix:"__"***
+        options:
+          enable:
+            type: bool
+            default: false
+            description: Enable SNMP enrichment.
+          port:
+            type: int
+            default: 161
+            description: SNMP port.
+          version:
+            type: int
+            default: 2
+            description: SNMP version.
+          communities:
+            type: str
+            default: "public"
+            description: SNMP communities.
+          v3_username:
+            type: str
+            default: ""
+            description: SNMP v3 username.
+          v3_authentication_protocol:
+            type: str
+            default: "noauth"
+            description: SNMP v3 authentication protocol.
+          v3_authentication_passphrase:
+            type: str
+            default: ""
+            description: SNMP v3 authentication passphrase.
+          v3_privacy_protocol:
+            type: str
+            default: "nopriv"
+            description: SNMP v3 privacy protocol.
+          v3_privacy_passphrase:
+            type: str
+            default: ""
+            description: SNMP v3 privacy passphrase.
+          timeout:
+            type: int
+            default: 2
+            description: SNMP timeout in seconds.
+          retries:
+            type: int
+            default: 1
+            description: SNMP retries.
+
+      netobserv_flow_config_processor_enrich_netif_metadata:
+        type: dict
+        description: |
+          User-defined network interface metadata enrichment configuration.
+          See: https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_netif_udm
+          ***defaults_prefix:"__"***
+        options:
+          enable:
+            type: bool
+            default: false
+            description: Enable user-defined netif metadata enrichment.
+          userdef_path:
+            type: str
+            default: null
+            description: Path to user-defined netif metadata config.
+          userdef_config_values:
+            type: dict
+            default: {}
+            description: |
+              Inline user-defined netif metadata config values. Example:
+              ```yaml
+              10.0.0.1:
+                1:
+                  ifName: lo
+                  ifDescr: lo
+                  ifAlias: lo
+                  ifType: 24
+                  ifSpeed: 10000000
+                  tags:
+                    - router_mgmt
+                  metadata:
+                    sec.zone.name: network
+                3:
+                  internal: false
+                  ifName: eth0
+                  ifDescr: eth0
+                  ifAlias: internet
+                  ifType: 6
+                  ifSpeed: 1000000000
+                  cirIn: 200000000
+                  cirOut: 12000000
+                  tags:
+                    - verizon
+                  metadata:
+                    sec.zone.name: internet
+              ```
+          userdef_config_local_path:
+            type: str
+            default: null
+            description: Local path for user-defined netif metadata config.
+          refresh_rate:
+            type: int
+            default: 15
+            description: Refresh rate in minutes.
+
+      netobserv_flow_config_processor_enrich_communityid:
+        type: dict
+        description: |
+          CommunityID enrichment configuration.
+          See: https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_comcon/#community-id
+          ***defaults_prefix:"__"***
+        options:
+          enable:
+            type: bool
+            default: true
+            description: Enable CommunityID enrichment.
+          seed:
+            type: int
+            default: 0
+            description: CommunityID seed value.
+
+      netobserv_flow_config_processor_enrich_conversationid:
+        type: dict
+        description: |
+          ConversationID enrichment configuration.
+          See: https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_comcon/#conversation-id
+          ***defaults_prefix:"__"***
+        options:
+          enable:
+            type: bool
+            default: true
+            description: Enable ConversationID enrichment.
+          seed:
+            type: int
+            default: 0
+            description: ConversationID seed value.
+
+      netobserv_flow_config_output_stdout:
+        type: dict
+        description: |
+          Stdout output configuration.
+          See: https://www.elastiflow.com/docs/config_ref/common/output_stdout
+          ***defaults_prefix:"__"***
+        options:
+          enable:
+            type: bool
+            default: false
+            description: Enable output to stdout.
+          format:
+            type: str
+            default: "json_pretty"
+            description: Output format.
+          allowed_record_types:
+            type: str
+            default: "as_path_hop,flow_option,flow,ifa_hop,telemetry,metric,log"
+            description: Allowed record types for stdout output.
+
+      netobserv_flow_config_output_elasticsearch:
+        type: dict
+        description: |
+          ElasticSearch output configuration.
+          See: https://www.elastiflow.com/docs/config_ref/common/output_elasticsearch
+          ***defaults_prefix:"__"***
+        options:
+          enable:
+            type: bool
+            default: false
+            description: Enable output to ElasticSearch.
+          ecs_enable:
+            type: bool
+            default: false
+            description: Enable Elastic Common Schema.
+          batch_deadline:
+            type: int
+            default: 2000
+            description: Deadline for batch processing in milliseconds.
+          batch_max_bytes:
+            type: int
+            default: 8388608
+            description: Maximum batch size in bytes.
+          timestamp_source:
+            type: str
+            default: "collect"
+            description: Source for event timestamps.
+          index_period:
+            type: str
+            default: "rollover"
+            description: Index period (rollover, daily, etc.).
+          tsds_enable:
+            type: bool
+            default: false
+            description: Enable time-series data stream.
+          index_suffix:
+            type: str
+            default: ""
+            description: Suffix for index names.
+          index_template_enable:
+            type: bool
+            default: true
+            description: Enable index template management.
+          index_template_overwrite:
+            type: bool
+            default: false
+            description: Overwrite existing index templates.
+          index_template_shards:
+            type: int
+            default: 3
+            description: Number of primary shards for index templates.
+          index_template_replicas:
+            type: int
+            default: 1
+            description: Number of replica shards for index templates.
+          index_template_refresh_interval:
+            type: str
+            default: "10s"
+            description: Index refresh interval.
+          index_template_codec:
+            type: str
+            default: "best_compression"
+            description: Codec for index template.
+          index_template_ilm_lifecycle:
+            type: str
+            default: "elastiflow"
+            description: ILM lifecycle policy name.
+          index_template_pipeline_default:
+            type: str
+            default: "_none"
+            description: Default ingest pipeline.
+          index_template_pipeline_final:
+            type: str
+            default: "_none"
+            description: Final ingest pipeline.
+          addresses:
+            type: str
+            default: "127.0.0.1:9200"
+            description: ElasticSearch node addresses.
+          username:
+            type: str
+            default: "elastic"
+            description: Username for ElasticSearch.
+          password:
+            type: str
+            description: Password for ElasticSearch.
+          cloud:
+            type: dict
+            description: ElasticSearch cloud configuration.
+            options:
+              id:
+                type: str
+                default: ""
+                description: Cloud ID.
+              api_key:
+                type: str
+                default: ""
+                description: Cloud API key.
+          tls:
+            type: dict
+            description: TLS configuration for ElasticSearch output.
+            options:
+              client_ca_cert_filepath:
+                type: str
+                default: ""
+                description: Path to client CA certificate.
+              client_cert_filepath:
+                type: str
+                default: ""
+                description: Path to client certificate.
+              client_key_filepath:
+                type: str
+                default: ""
+                description: Path to client key.
+              enable:
+                type: bool
+                default: false
+                description: Enable TLS.
+              skip_verification:
+                type: bool
+                default: false
+                description: Skip certificate verification.
+              ca_cert_filepath:
+                type: str
+                default: ""
+                description: Path to CA certificate.
+          retry_enable:
+            type: bool
+            default: true
+            description: Enable retry on failure.
+          retry_on_timeout_enable:
+            type: bool
+            default: true
+            description: Enable retry on timeout.
+          max_retries:
+            type: int
+            default: 3
+            description: Maximum number of retries.
+          retry_backoff:
+            type: int
+            default: 1000
+            description: Backoff time between retries (ms).
+          storage_optimization_enable:
+            type: bool
+            default: true
+            description: Enable storage optimization.
+          drop_fields:
+            type: str
+            default: ""
+            description: Fields to drop from output.
+          allowed_record_types:
+            type: str
+            default: "as_path_hop,flow_option,flow,ifa_hop,telemetry,metric"
+            description: Allowed record types for ElasticSearch output.
+
+      netobserv_flow_config_output_opensearch:
+        type: dict
+        description: |
+          OpenSearch output configuration.
+          See: https://www.elastiflow.com/docs/config_ref/common/output_opensearch
+          ***defaults_prefix:"__"***
+        options:
+          enable:
+            type: bool
+            default: false
+            description: Enable output to OpenSearch.
+          ecs_enable:
+            type: bool
+            default: false
+            description: Enable Elastic Common Schema.
+          batch_deadline:
+            type: int
+            default: 2000
+            description: Deadline for batch processing in milliseconds.
+          batch_max_bytes:
+            type: int
+            default: 8388608
+            description: Maximum batch size in bytes.
+          timestamp_source:
+            type: str
+            default: "collect"
+            description: Source for event timestamps.
+          index_period:
+            type: str
+            default: "daily"
+            description: Index period (daily, etc.).
+          index_suffix:
+            type: str
+            default: ""
+            description: Suffix for index names.
+          index_template_enable:
+            type: bool
+            default: true
+            description: Enable index template management.
+          index_template_overwrite:
+            type: bool
+            default: false
+            description: Overwrite existing index templates.
+          index_template_shards:
+            type: int
+            default: 3
+            description: Number of primary shards for index templates.
+          index_template_replicas:
+            type: int
+            default: 1
+            description: Number of replica shards for index templates.
+          index_template_refresh_interval:
+            type: str
+            default: "10s"
+            description: Index refresh interval.
+          index_template_codec:
+            type: str
+            default: "best_compression"
+            description: Codec for index template.
+          index_template_ism_policy:
+            type: str
+            default: "elastiflow"
+            description: ISM policy name.
+          index_template_pipeline_default:
+            type: str
+            default: "_none"
+            description: Default ingest pipeline.
+          index_template_pipeline_final:
+            type: str
+            default: "_none"
+            description: Final ingest pipeline.
+          addresses:
+            type: str
+            default: "127.0.0.1:9200"
+            description: OpenSearch node addresses.
+          username:
+            type: str
+            default: "admin"
+            description: Username for OpenSearch.
+          password:
+            type: str
+            default: "admin"
+            description: Password for OpenSearch.
+          aws:
+            type: dict
+            description: AWS credentials for OpenSearch.
+            options:
+              access_key:
+                type: str
+                default: null
+                description: AWS access key.
+              secret_key:
+                type: str
+                default: null
+                description: AWS secret key.
+              region:
+                type: str
+                default: null
+                description: AWS region.
+          tls:
+            type: dict
+            description: TLS configuration for OpenSearch output.
+            options:
+              client_ca_cert_filepath:
+                type: str
+                default: ""
+                description: Path to client CA certificate.
+              client_cert_filepath:
+                type: str
+                default: ""
+                description: Path to client certificate.
+              client_key_filepath:
+                type: str
+                default: ""
+                description: Path to client key.
+              enable:
+                type: bool
+                default: false
+                description: Enable TLS.
+              skip_verification:
+                type: bool
+                default: false
+                description: Skip certificate verification.
+              ca_cert_filepath:
+                type: str
+                default: ""
+                description: Path to CA certificate.
+          retry_enable:
+            type: bool
+            default: true
+            description: Enable retry on failure.
+          retry_on_timeout_enable:
+            type: bool
+            default: true
+            description: Enable retry on timeout.
+          max_retries:
+            type: int
+            default: 3
+            description: Maximum number of retries.
+          retry_backoff:
+            type: int
+            default: 1000
+            description: Backoff time between retries (ms).
+          storage_optimization_enable:
+            type: bool
+            default: true
+            description: Enable storage optimization.
+          drop_fields:
+            type: str
+            default: ""
+            description: Fields to drop from output.
+          allowed_record_types:
+            type: str
+            default: "as_path_hop,flow_option,flow,ifa_hop,telemetry,metric,log"
+            description: Allowed record types for OpenSearch output.
+
+      netobserv_flow_config_input_flow:
+        type: dict
+        description: |
+          Netflow/IPFIX/sFlow (UDP) input configuration.
+          See: https://www.elastiflow.com/docs/config_ref/flowcoll/input_udp
+          ***defaults_prefix:"__"***
+        options:
+          server_udp_ip:
+            type: str
+            default: "0.0.0.0"
+            description: UDP server IP address.
+          server_udp_port:
+            type: int
+            default: 9995
+            description: UDP server port.
+          server_udp_read_buffer_max_size:
+            type: int
+            default: 33554432
+            description: UDP read buffer max size.
+          packet_stream_max_size:
+            type: int
+            default: 512
+            description: Packet stream max size.
+
+      netobserv_flow_config_input_aws_vpc_flow_log_firehose:
+        type: dict
+        description: |
+          AWS VPC Flow Log Firehose input configuration.
+          See: https://www.elastiflow.com/docs/config_ref/flowcoll/input_aws_firehose
+          ***defaults_prefix:"__"***
+        options:
+          http_enable:
+            type: bool
+            default: false
+            description: Enable HTTP input for AWS Firehose.
+          http_port:
+            type: int
+            default: 443
+            description: HTTP port for AWS Firehose.
+          http_access_key:
+            type: str
+            default: ""
+            description: AWS access key for Firehose.
+          http_log_format:
+            type: str
+            default: "${version} ${account-id} ${interface-id} ${srcaddr} ${dstaddr} ${srcport} ${dstport} ${protocol} ${packets} ${bytes} ${start} ${end} ${action} ${log-status}" # noqa: yaml[line-length]
+            description: Log format for AWS Firehose.
+
+      netobserv_flow_config_input_aws_vpc_flow_log_s3:
+        type: dict
+        description: |
+          AWS VPC Flow Log S3 input configuration.
+          See: https://www.elastiflow.com/docs/config_ref/flowcoll/input_aws_s3
+          ***defaults_prefix:"__"***
+        options:
+          enable:
+            type: bool
+            default: false
+            description: Enable S3 input.
+          bucket:
+            type: str
+            default: ""
+            description: S3 bucket name.
+          prefix:
+            type: str
+            default: "AWSLogs"
+            description: S3 prefix.
+          pool_size:
+            type: int
+            default: null
+            description: Pool size for S3 input.
+          tls:
+            type: dict
+            description: TLS configuration for S3 input.
+            options:
+              enable:
+                type: bool
+                default: true
+                description: Enable TLS for S3 input. Differs from default for security reasons
+              skip_verification:
+                type: bool
+                default: false
+                description: Skip TLS certificate verification.
+              ca_cert_filepath:
+                type: str
+                default: ""
+                description: Path to CA certificate file.
+              min_version:
+                type: str
+                default: "1.2"
+                description: Minimum TLS version.
+          firehose_s3_enable:
+            type: bool
+            default: false
+            description: Enable Firehose S3 input.
+          firehose_s3_log_format:
+            type: str
+            default: "${version} ${account-id} ${interface-id} ${srcaddr} ${dstaddr} ${srcport} ${dstport} ${protocol} ${packets} ${bytes} ${start} ${end} ${action} ${log-status}" # noqa: yaml[line-length]
+            description: Log format for Firehose S3.
+          aws:
+            type: dict
+            description: AWS credentials for S3 input.
+            options:
+              access_key:
+                type: str
+                default: null
+                description: AWS access key.
+              secret_key:
+                type: str
+                default: null
+                description: AWS secret key.
+
+      netobserv_flow_config_input_azure_flow_log_vnet:
+        type: dict
+        description: |
+          Azure VNET Flow Log input configuration.
+          See: https://www.elastiflow.com/docs/config_ref/flowcoll/input_azure_vnet
+          ***defaults_prefix:"__"***
+        options:
+          enable:
+            type: bool
+            default: false
+            description: Enable Azure VNET input.
+          config_file_path:
+            type: str
+            default: "/etc/elastiflow/azure/flowlog_vnet.yml"
+            description: Path to Azure VNET config file.
+          config_values:
+            type: list
+            default: []
+            description: |
+              Inline Azure VNET configuration values. Example:
+              ```yaml
+              - tenantId: "App registration Directory ID"
+                clientId: "App registration Application ID"
+                clientSecret: "App registration client secret"
+                consumers:
+                  - namespace: "Host name of the Event Hubs namespace"
+                    name: "Name of the Event Hub"
+                    consumerGroup: "$Default"
+              ```
+
+      netobserv_flow_config_input_benchmark:
+        type: dict
+        description: |
+          Benchmark input configuration.
+          See: https://www.elastiflow.com/docs/config_ref/flowcoll/input_benchmark
+          ***defaults_prefix:"__"***
+        options:
+          enable:
+            type: bool
+            default: false
+            description: Enable benchmark input.
+          packet_filepath:
+            type: str
+            default: "/etc/elastiflow/benchmark/flow/packets.txt"
+            description: Path to benchmark packet file.
+
+      netobserv_flow_custom_config_values:
+        type: dict
+        default: {}
+        description: |
+          Custom configuration values for NetObserv Flow. Values are appended to the `flowcoll.yml` as YAML. Example:
+          ```yaml
+          EF_SOME_SETTING: "/some/host/path/config.yml"
+          EF_ANOTHER_SETTING: "/some/host/path/config.yml"
+          ```
+
+      netobserv_flow_dashboards:
+        type: dict
+        description: |
+          Dashboard import configuration for ElasticSearch and OpenSearch.
+          ***defaults_prefix:"__"***
+        options:
+          elasticsearch:
+            type: dict
+            description: |
+              ElasticSearch dashboard import configuration.
+              See: https://www.elastiflow.com/docs/data_platforms/elastic/kibana
+            options:
+              enable:
+                type: bool
+                default: false
+                description: Enable ElasticSearch dashboard import.
+              url:
+                type: str
+                default: "https://raw.githubusercontent.com/elastiflow/elastiflow_for_elasticsearch/master/kibana/flow/kibana-8.14.x-flow-codex.ndjson"
+                description: URL for Kibana dashboard.
+              override:
+                type: bool
+                default: true
+                description: Override existing dashboards.
+              kibana_url:
+                type: str
+                default: "http://127.0.0.1:5601"
+                description: Kibana server URL.
+              tls:
+                type: dict
+                description: TLS configuration for dashboard import.
+                options:
+                  validate_certs:
+                    type: bool
+                    default: false
+                    description: Validate TLS certificates.
+                  ca_path:
+                    type: str
+                    default: null
+                    description: Path to CA certificate.
+                  client_cert:
+                    type: str
+                    default: null
+                    description: Path to client certificate.
+                  client_key:
+                    type: str
+                    default: null
+                    description: Path to client key.
+          opensearch:
+            type: dict
+            description: |
+              OpenSearch dashboard import configuration.
+              See: https://www.elastiflow.com/docs/data_platforms/opensearch/dashboards
+            options:
+              enable:
+                type: bool
+                default: false
+                description: Enable OpenSearch dashboard import.
+              url:
+                type: str
+                default: "https://raw.githubusercontent.com/elastiflow/elastiflow_for_opensearch/main/dashboards/flow/dashboards-2.14.x-flow-codex.ndjson"
+                description: URL for OpenSearch dashboard.
+              override:
+                type: bool
+                default: true
+                description: Override existing dashboards.
+              dashboards_url:
+                type: str
+                default: "http://127.0.0.1:5601"
+                description: OpenSearch Dashboards URL.
+              tls:
+                type: dict
+                description: TLS configuration for dashboard import.
+                options:
+                  validate_certs:
+                    type: bool
+                    default: false
+                    description: Validate TLS certificates.
+                  ca_path:
+                    type: str
+                    default: null
+                    description: Path to CA certificate.
+                  client_cert:
+                    type: str
+                    default: null
+                    description: Path to client certificate.
+                  client_key:
+                    type: str
+                    default: null
+                    description: Path to client key.
+
+      netobserv_flow_kernel_parameters:
+        type: dict
+        description: |
+          Kernel tuning parameters for NetObserv Flow.
+          See: https://www.elastiflow.com/docs/flowcoll/requirements/#recommended-kernel-tuning
+          ***defaults_prefix:"__"***
+        options:
+          tune_enabled:
+            type: bool
+            default: true
+            description: Enable kernel tuning.
+          net.core.netdev_max_backlog:
+            type: int
+            default: 4096
+            description: Maximum number of packets allowed to queue when the interface receives packets faster than the kernel can process them.
+          net.core.rmem_default:
+            type: int
+            default: 262144
+            description: Default receive buffer size for network sockets.
+          net.core.rmem_max:
+            type: int
+            default: null
+            description: Maximum receive buffer size for network sockets.
+          net.ipv4.udp_rmem_min:
+            type: int
+            default: 131072
+            description: Minimum receive buffer size for UDP sockets.
+          net.ipv4.udp_mem:
+            type: str
+            default: "2097152 4194304 8388608"
+            description: Memory usage limits for UDP.

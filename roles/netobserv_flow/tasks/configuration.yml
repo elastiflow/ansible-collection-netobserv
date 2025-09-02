@@ -1,0 +1,158 @@
+- name: Render NetObserv Flow configuration
+  ansible.builtin.template:
+    src: "flowcoll.yml.j2"
+    dest: "{{ netobserv_flow_config_file }}"
+    mode: "0644"
+    backup: true
+  notify:
+    - Restart NetObserv Flow
+- name: Render NetObserv Flow configuration for Azure Flow Logs (VNET)
+  ansible.builtin.template:
+    src: "flowlog_vnet.yml.j2"
+    dest: "{{ netobserv_flow_config_input_azure_flow_log_vnet.config_file_path }}"
+    mode: "0644"
+    backup: true
+  notify:
+    - Restart NetObserv Flow
+  when: netobserv_flow_config_input_azure_flow_log_vnet.enable
+- name: Render NetObserv Flow user defined sampling configuration
+  ansible.builtin.template:
+    src: "sample_rate.yml.j2"
+    dest: "{{ netobserv_flow_config_processor.enrich_samplerate_userdef_path }}"
+    mode: "0644"
+    backup: true
+  notify:
+    - Restart NetObserv Flow
+  when: netobserv_flow_config_processor.enrich_samplerate_userdef_enable
+- name: NetObserv Flow Application enrichment config
+  when: netobserv_flow_config_processor_enrich_app.ipport_enable
+  block:
+    - name: Render NetObserv Flow Application enrichment config
+      ansible.builtin.template:
+        src: "ipport.yml.j2"
+        dest: "{{ netobserv_flow_config_processor_enrich_app.ipport_path }}"
+        mode: "0644"
+        backup: true
+      notify:
+        - Restart NetObserv Flow
+      when: netobserv_flow_config_processor_enrich_app.ipport_config_values | length > 0
+    - name: Copy NetObserv Flow Application enrichment config
+      ansible.builtin.template:
+        src: "{{ netobserv_flow_config_processor_enrich_app.ipport_config_local_path }}"
+        dest: "{{ netobserv_flow_config_processor_enrich_app.ipport_path }}"
+        mode: "0644"
+        backup: true
+      notify:
+        - Restart NetObserv Flow
+      when: netobserv_flow_config_processor_enrich_app.ipport_config_local_path != None
+- name: NetObserv Flow Name Resolution enrichment config
+  when: >-
+    netobserv_flow_config_processor_enrich_ipaddr_dns.enable
+    and netobserv_flow_config_processor_enrich_ipaddr_dns.userdef_path != None
+  block:
+    - name: Render NetObserv Flow Name Resolution enrichment config
+      ansible.builtin.template:
+        src: "user_defined.yml.j2"
+        dest: "{{ netobserv_flow_config_processor_enrich_ipaddr_dns.userdef_path }}"
+        mode: "0644"
+        backup: true
+      notify:
+        - Restart NetObserv Flow
+      when: netobserv_flow_config_processor_enrich_ipaddr_dns.userdef_config_values | length > 0
+    - name: Copy NetObserv Flow Name Resolution enrichment config
+      ansible.builtin.template:
+        src: "{{ netobserv_flow_config_processor_enrich_ipaddr_dns.userdef_config_local_path }}"
+        dest: "{{ netobserv_flow_config_processor_enrich_ipaddr_dns.userdef_path }}"
+        mode: "0644"
+        backup: true
+      notify:
+        - Restart NetObserv Flow
+      when: netobserv_flow_config_processor_enrich_ipaddr_dns.userdef_config_local_path != None
+- name: NetObserv Flow Name Resolution enrichment include/exclude config
+  when: >-
+    netobserv_flow_config_processor_enrich_ipaddr_dns.enable
+    and netobserv_flow_config_processor_enrich_ipaddr_dns.inclexcl_path | length > 0
+  block:
+    - name: Render NetObserv Flow Name Resolution enrichment include/exclude config
+      ansible.builtin.template:
+        src: "incl_excl_dns.yml.j2"
+        dest: "{{ netobserv_flow_config_processor_enrich_ipaddr_dns.inclexcl_path }}"
+        mode: "0644"
+        backup: true
+      notify:
+        - Restart NetObserv Flow
+      when: netobserv_flow_config_processor_enrich_ipaddr_dns.inclexcl_config_values | length > 0
+    - name: Copy NetObserv Flow Name Resolution enrichment include/exclude config
+      ansible.builtin.template:
+        src: "{{ netobserv_flow_config_processor_enrich_ipaddr_dns.inclexcl_config_local_path }}"
+        dest: "{{ netobserv_flow_config_processor_enrich_ipaddr_dns.inclexcl_path }}"
+        mode: "0644"
+        backup: true
+      notify:
+        - Restart NetObserv Flow
+      when: netobserv_flow_config_processor_enrich_ipaddr_dns.inclexcl_config_local_path != None
+- name: NetObserv Maxmind enrichment include/exclude config
+  when: >-
+    netobserv_flow_config_processor_enrich_ipaddr_maxmind.geoip_enable
+    and netobserv_flow_config_processor_enrich_ipaddr_maxmind.geoip_inclexcl_path | length > 0
+  block:
+    - name: Render NetObserv Maxmind enrichment include/exclude config
+      ansible.builtin.template:
+        src: "incl_excl_maxmind_geoip.yml.j2"
+        dest: "{{ netobserv_flow_config_processor_enrich_ipaddr_maxmind.geoip_inclexcl_path }}"
+        mode: "0644"
+        backup: true
+      notify:
+        - Restart NetObserv Flow
+      when: netobserv_flow_config_processor_enrich_ipaddr_maxmind.geoip_inclexcl_config_values | length > 0
+    - name: Copy NetObserv Maxmind enrichment include/exclude config
+      ansible.builtin.template:
+        src: "{{ netobserv_flow_config_processor_enrich_ipaddr_maxmind.geoip_inclexcl_config_local_path }}"
+        dest: "{{ netobserv_flow_config_processor_enrich_ipaddr_maxmind.geoip_inclexcl_path }}"
+        mode: "0644"
+        backup: true
+      notify:
+        - Restart NetObserv Flow
+      when: netobserv_flow_config_processor_enrich_ipaddr_maxmind.geoip_inclexcl_config_local_path != None
+- name: NetObserv Flow User-Defined Metadata IP enrichment config
+  when: netobserv_flow_config_processor_enrich_ipaddr_metadata.enable
+  block:
+    - name: Render NetObserv Flow User-Defined Metadata IP enrichment config
+      ansible.builtin.template:
+        src: "ipaddrs.yml.j2"
+        dest: "{{ netobserv_flow_config_processor_enrich_ipaddr_metadata.userdef_path }}"
+        mode: "0644"
+        backup: true
+      notify:
+        - Restart NetObserv Flow
+      when: netobserv_flow_config_processor_enrich_ipaddr_metadata.userdef_config_values | length > 0
+    - name: Copy NetObserv Flow User-Defined Metadata IP enrichment config
+      ansible.builtin.copy:
+        src: "{{ netobserv_flow_config_processor_enrich_ipaddr_metadata.userdef_config_local_path }}"
+        dest: "{{ netobserv_flow_config_processor_enrich_ipaddr_metadata.userdef_path }}"
+        mode: "0644"
+        backup: true
+      notify:
+        - Restart NetObserv Flow
+      when: netobserv_flow_config_processor_enrich_ipaddr_metadata.userdef_config_local_path != None
+- name: NetObserv Flow User-Defined Metadata network interfaces enrichment config
+  when: netobserv_flow_config_processor_enrich_netif_metadata.enable
+  block:
+    - name: Render NetObserv Flow User-Defined Metadata network interfaces enrichment config
+      ansible.builtin.template:
+        src: "netifs.yml.j2"
+        dest: "{{ netobserv_flow_config_processor_enrich_netif_metadata.userdef_path }}"
+        mode: "0644"
+        backup: true
+      notify:
+        - Restart NetObserv Flow
+      when: netobserv_flow_config_processor_enrich_netif_metadata.userdef_config_values | length > 0
+    - name: Copy NetObserv Flow User-Defined Metadata network interfaces enrichment config
+      ansible.builtin.copy:
+        src: "{{ netobserv_flow_config_processor_enrich_netif_metadata.userdef_config_local_path }}"
+        dest: "{{ netobserv_flow_config_processor_enrich_netif_metadata.userdef_path }}"
+        mode: "0644"
+        backup: true
+      notify:
+        - Restart NetObserv Flow
+      when: netobserv_flow_config_processor_enrich_netif_metadata.userdef_config_local_path != None

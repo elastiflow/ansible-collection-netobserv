@@ -1,0 +1,9 @@
+---
+- name: Validate required variables were set
+  ansible.builtin.assert:
+    quiet: true
+    that:
+      - version is defined
+      - collector_type is defined
+- name: Include tasks for {{ ansible_os_family }}
+  ansible.builtin.include_tasks: "{{ ansible_os_family | lower }}.yml"

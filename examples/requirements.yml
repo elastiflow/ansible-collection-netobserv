@@ -1,0 +1,10 @@
+# Ansible requirements to make ansible-lint GHA happy. List of roles and collections in the examples
+collections:
+  - name: community.general
+  - name: community.docker
+  # TODO: Use Ansible Galaxy URL
+  # - name: elastiflow.netobserv
+  #   type: git
+  #   source: git@github.com:elastiflow/ansible-collection-collector-tmp.git
+roles:
+  - name: geerlingguy.docker

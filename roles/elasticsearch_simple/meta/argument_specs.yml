@@ -1,0 +1,30 @@
+argument_specs:
+  main:
+    short_description: |
+      "simple" role to install ElasticSearch using the modified docker-compose file from the official [Docker Compose doc](https://github.com/elastic/elasticsearch/blob/main/docs/reference/setup/install/docker/docker-compose.yml)
+    options:
+      elasticsearch_version:
+        type: str
+        default: "9.1.2"
+        description: |
+          ElasticSearch version
+      elasticsearch_jvm_heap_size:
+        type: str
+        default: "5g"
+        description: |
+          JVM heap size
+      elasticsearch_mem_limit:
+        type: str
+        default: "10g"
+        description: |
+          ElasticSearch container memory limit. Should be roughly twice of the jvm_heap_size
+      elasticsearch_kibana_mem_limit:
+        type: str
+        default: "1g"
+        description: |
+          Kibana container memory limit
+      elasticsearch_initial_password:
+        type: str
+        default: "Strong1pass!"
+        description: |
+          ElasticSearch initial password for the default admin `elastic` user

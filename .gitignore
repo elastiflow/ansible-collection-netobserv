@@ -1,0 +1,32 @@
+# Misc
+.DS_Store
+tmp.*
+*.diff
+
+# IDE
+.idea
+.vscode
+
+# Terraform
+.terraform
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+*.out
+.terragrunt-cache
+terragrunt_rendered.json
+terragrunt-debug.tfvars.json
+
+# Ansible
+.ansible
+tests/output
+*.tar.gz
+
+# Python
+.venv
+.ruff_cache
+__pycache__
+**_cache
+mib2conf_venv
+.coverage
+coverage.xml
