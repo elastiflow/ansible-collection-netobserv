@@ -1,3 +1,10 @@
+## [0.1.0](https://github.com/elastiflow/ansible-collection-netobserv/compare/v0.0.1...v0.1.0) (2025-09-02)
+
+### Features
+
+* Initial collection release ([#1](https://github.com/elastiflow/ansible-collection-netobserv/issues/1)) ([ed455d0](https://github.com/elastiflow/ansible-collection-netobserv/commit/ed455d054b373eebe362afc40da75eeb81ce070e))
+
+
 ## [0.1.1](https://github.com/elastiflow/ansible-collection-collector-tmp/compare/v0.1.0...v0.1.1) (2025-09-02)
 
 ### Bug Fixes
