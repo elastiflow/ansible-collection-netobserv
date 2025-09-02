@@ -1,0 +1,38 @@
+---
+# Using delegate_to: localhost since `lookup` searches for the files locally.
+- name: Create TMP dir for ElastiFlow ElasticSearch dashboards
+  ansible.builtin.file:
+    state: directory
+    path: "/tmp/elastiflow/elasticsearch_dashboards"
+    mode: "0755"
+  become: false
+  delegate_to: localhost
+  register: _netobserv_flow_elasticsearch_dashboards_dir
+- name: Download ElasticSearch Dashboards file
+  ansible.builtin.get_url:
+    url: "{{ netobserv_flow_dashboards.elasticsearch.url }}"
+    dest: "{{ _netobserv_flow_elasticsearch_dashboards_dir.path }}/"
+    mode: "0644"
+  become: false
+  delegate_to: localhost
+  register: _netobserv_flow_elasticsearch_dashboards_file
+- name: Provision ElasticSearch Dashboards
+  ansible.builtin.uri:
+    url: "{{ netobserv_flow_dashboards.elasticsearch.kibana_url }}/api/saved_objects/_import?overwrite={{ netobserv_flow_dashboards.elasticsearch.override }}" # noqa: yaml[line-length]
+    method: POST
+    status_code: 200
+    validate_certs: "{{ netobserv_flow_dashboards.elasticsearch.tls.validate_certs }}"
+    ca_path: "{{ netobserv_flow_dashboards.elasticsearch.tls.ca_path }}"
+    client_cert: "{{ netobserv_flow_dashboards.elasticsearch.tls.client_cert }}"
+    client_key: "{{ netobserv_flow_dashboards.elasticsearch.tls.client_key }}"
+    force_basic_auth: true
+    user: "{{ netobserv_flow_config_output_elasticsearch.username }}"
+    password: "{{ netobserv_flow_config_output_elasticsearch.password }}"
+    headers:
+      kbn-xsrf: "true"
+      securitytenant: "global"
+    body_format: form-multipart
+    body:
+      file:
+        filename: "{{ _netobserv_flow_elasticsearch_dashboards_file.dest | basename }}"
+        content: "{{ lookup('ansible.builtin.file', _netobserv_flow_elasticsearch_dashboards_file.dest) }}"

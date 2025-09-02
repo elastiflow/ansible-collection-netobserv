@@ -1,0 +1,27 @@
+---
+- name: Install NetObserv collector
+  hosts: all
+  any_errors_fatal: true
+  become: true
+  roles:
+    - role: geerlingguy.docker
+    - role: elastiflow.netobserv.elasticsearch_simple # noqa: syntax-check[specific] false-positive
+      vars:
+        elasticsearch_jvm_heap_size: "5g"
+        elasticsearch_mem_limit: "9g"
+        elasticsearch_initial_password: "Elast1flow!"
+    - role: elastiflow.netobserv.netobserv_flow # noqa: syntax-check[specific] false-positive
+      vars:
+        netobserv_flow_config_output_elasticsearch:
+          enable: true
+          index_template_replicas: 0
+          password: "Elast1flow!"
+          tls:
+            enable: true
+            skip_verification: true
+        netobserv_flow_config_input_benchmark:
+          enable: false # Enable to continuously ingest benchmark data
+
+        netobserv_flow_dashboards:
+          elasticsearch:
+            enable: true

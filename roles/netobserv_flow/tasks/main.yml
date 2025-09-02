@@ -1,0 +1,88 @@
+---
+# Needed because by default Ansible don't merge dicts - https://docs.ansible.com/ansible/latest/reference_appendices/config.html#default-hash-behaviour
+- name: Get the variable names with "__" prefix (the default vars)
+  become: false
+  delegate_to: localhost
+  ansible.builtin.set_fact:
+    _netobserv_flow_vars_with_defaults: >-
+      {%- set vars_with_defaults = [] -%}
+      {%- for k in vars.keys() -%}
+      {%- if k | regex_search("^__netobserv_flow") -%}
+        {{- vars_with_defaults.append(k | regex_replace('^__netobserv_flow', 'netobserv_flow')) -}}
+      {%- endif -%}
+      {%- endfor -%}
+      {{ vars_with_defaults }}
+- name: Merge vars with defaults
+  become: false
+  delegate_to: localhost
+  # Using `lookup('ansible.builtin.vars'...) instead of `vars` dict because when using `vars` dict Jinja inside vars is not rendered
+  ansible.builtin.set_fact:
+    "{{ item }}": >-
+      {{ lookup('ansible.builtin.vars', item | regex_replace('^netobserv_flow', '__netobserv_flow'))
+      | combine(lookup('ansible.builtin.vars', item, default={}), recursive=true) }}
+  loop: "{{ _netobserv_flow_vars_with_defaults }}"
+- name: Validate NetObserv Flow config options
+  ansible.builtin.include_role:
+    name: elastiflow.netobserv._validate_vars
+    tasks_from: netobserv
+  vars:
+    netobserv_common_config_api: "{{ netobserv_flow_config_api }}"
+    netobserv_common_config_output_elasticsearch: "{{ netobserv_flow_config_output_elasticsearch }}"
+    netobserv_common_config_output_opensearch: "{{ netobserv_flow_config_output_opensearch }}"
+    validate_netobserv_flow: true
+  when: netobserv_flow_validate_vars
+- name: Create NetObserv Flow logging dir
+  ansible.builtin.file:
+    state: directory
+    path: "{{ netobserv_flow_config_logger.file_log_filename | dirname }}"
+    mode: "0755"
+    owner: elastiflow
+    recurse: true
+  when: netobserv_flow_config_logger.file_log_enable | default(false)
+# https://www.elastiflow.com/docs/flowcoll/requirements/#recommended-kernel-tuning
+- name: Tune Kernel parameters
+  when: netobserv_flow_kernel_parameters.tune_enabled
+  block:
+    # https://www.elastiflow.com/docs/flowcoll/config_gen/#udp-input
+    - name: Tune maximum receive socket buffer size
+      ansible.posix.sysctl:
+        name: net.core.rmem_max
+        value: "{{ netobserv_flow_kernel_parameters['net.core.rmem_max'] or netobserv_flow_config_input_flow.server_udp_read_buffer_max_size }}"
+        sysctl_set: true
+      # Change only when var is not null or if server_udp_read_buffer_max_size higher the Ubuntu22.04/Ubuntu24.04/Rocky9 default
+      when: netobserv_flow_kernel_parameters['net.core.rmem_max'] or netobserv_flow_config_input_flow.server_udp_read_buffer_max_size > 212992
+    - name: Tune interface's maximum receive queue
+      ansible.posix.sysctl:
+        name: net.core.netdev_max_backlog
+        value: "{{ netobserv_flow_kernel_parameters['net.core.netdev_max_backlog'] }}"
+        sysctl_set: true
+    - name: Tune default receive socket buffer size
+      ansible.posix.sysctl:
+        name: net.core.rmem_default
+        value: "{{ netobserv_flow_kernel_parameters['net.core.rmem_default'] }}"
+        sysctl_set: true
+    - name: Tune UDP receive buffer minimal size
+      ansible.posix.sysctl:
+        name: net.ipv4.udp_rmem_min
+        value: "{{ netobserv_flow_kernel_parameters['net.ipv4.udp_rmem_min'] }}"
+        sysctl_set: true
+    - name: Tune number of pages allowed for queueing by all UDP sockets
+      ansible.posix.sysctl:
+        name: net.ipv4.udp_mem
+        value: "{{ netobserv_flow_kernel_parameters['net.ipv4.udp_mem'] }}"
+        sysctl_set: true
+- name: Render NetObserv Flow configuration
+  ansible.builtin.include_tasks: "configuration.yml"
+- name: Start NetObserv Flow
+  ansible.builtin.service:
+    name: flowcoll
+    state: started
+    enabled: true
+- name: Provision Dashboards
+  block:
+    - name: Provision OpenSearch Dashboards
+      ansible.builtin.include_tasks: "opensearch_dashboards.yml"
+      when: netobserv_flow_dashboards.opensearch.enable
+    - name: Provision ElasticSearch Dashboards
+      ansible.builtin.include_tasks: "elasticsearch_dashboards.yml"
+      when: netobserv_flow_dashboards.elasticsearch.enable

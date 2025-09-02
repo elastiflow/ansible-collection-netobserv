@@ -1,0 +1,30 @@
+---
+- name: Install dependencies
+  ansible.builtin.apt:
+    name:
+      - gnupg
+      - ca-certificates
+      - apt-transport-https
+    state: present
+    update_cache: true
+- name: Add an GCP Apt signing key
+  ansible.builtin.get_url:
+    url: https://us-apt.pkg.dev/doc/repo-signing-key.gpg
+    dest: /etc/apt/keyrings/cloud.google.asc
+    mode: "0644"
+    owner: "root"
+    group: "root"
+- name: De-Armor GCP Apt signing key
+  ansible.builtin.command:
+    cmd: gpg --dearmor -o /etc/apt/keyrings/cloud.google.gpg /etc/apt/keyrings/cloud.google.asc
+    creates: /etc/apt/keyrings/cloud.google.gpg
+- name: Add Elastiflow APT repository
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/cloud.google.gpg] https://apt.elastiflow.com elastiflow-apt main"
+    filename: elastiflow
+    state: present
+- name: Install dependencies
+  ansible.builtin.apt:
+    name: "{{ collector_type }}={{ version }}"
+    state: present
+    update_cache: true

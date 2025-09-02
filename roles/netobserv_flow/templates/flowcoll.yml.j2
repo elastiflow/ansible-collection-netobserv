@@ -1,0 +1,329 @@
+# https://www.elastiflow.com/docs/config_ref/flowcoll/data_path
+EF_FLOW_DATA_PATH: {{ netobserv_flow_config_data_path | to_json }}
+
+#https://www.elastiflow.com/docs/config_ref/common/license/
+EF_LICENSE_ACCEPTED: {{ netobserv_flow_config_license.accepted | to_json }}
+{% if netobserv_flow_config_license.account_id != None %}EF_ACCOUNT_ID: {{ netobserv_flow_config_license.account_id | to_json ~ "\n" }}{% endif %}
+{% if netobserv_flow_config_license.license_key != None %}EF_LICENSE_KEY: {{ netobserv_flow_config_license.license_key | to_json ~ "\n" }}{% endif %}
+
+# https://www.elastiflow.com/docs/config_ref/common/logging
+EF_LOGGER_LEVEL: {{ netobserv_flow_config_logger.level | to_json }}
+EF_LOGGER_ENCODING: {{ netobserv_flow_config_logger.encoding | to_json }}
+{% if netobserv_flow_config_logger.file_log_enable -%}
+EF_LOGGER_FILE_LOG_ENABLE: {{ netobserv_flow_config_logger.file_log_enable | to_json }}
+EF_LOGGER_FILE_LOG_FILENAME: {{ netobserv_flow_config_logger.file_log_filename | to_json }}
+EF_LOGGER_FILE_LOG_MAX_SIZE: {{ netobserv_flow_config_logger.file_log_max_size | to_json }}
+EF_LOGGER_FILE_LOG_MAX_AGE: {{ netobserv_flow_config_logger.file_log_max_age | to_json }}
+EF_LOGGER_FILE_LOG_MAX_BACKUPS: {{ netobserv_flow_config_logger.file_log_max_backups | to_json }}
+EF_LOGGER_FILE_LOG_COMPRESS: {{ netobserv_flow_config_logger.file_log_compress | to_json }}
+{% endif %}
+
+# https://www.elastiflow.com/docs/config_ref/common/api
+EF_INSTANCE_NAME: {{ netobserv_flow_config_api.instance_name | to_json }}
+EF_API_IP: {{ netobserv_flow_config_api.ip | to_json }}
+EF_API_PORT: {{ netobserv_flow_config_api.port | to_json }}
+{% if netobserv_flow_config_api.tls.enable -%}
+EF_API_TLS_ENABLE: {{ netobserv_flow_config_api.tls.enable | to_json }}
+EF_API_TLS_CERT_FILEPATH: {{ netobserv_flow_config_api.tls.cert_filepath | to_json }}
+EF_API_TLS_KEY_FILEPATH: {{ netobserv_flow_config_api.tls.key_filepath | to_json }}
+{% endif -%}
+{% if netobserv_flow_config_api.basic_auth_enable -%}
+EF_API_BASIC_AUTH_ENABLE: {{ netobserv_flow_config_api.basic_auth_enable | to_json }}
+EF_API_BASIC_AUTH_USERNAME: {{ netobserv_flow_config_api.basic_auth_username | to_json }}
+EF_API_BASIC_AUTH_PASSWORD: {{ netobserv_flow_config_api.basic_auth_password | to_json }}
+{% endif %}
+
+# https://www.elastiflow.com/docs/config_ref/common/processor
+EF_PROCESSOR_POOL_SIZE: {{ netobserv_flow_config_processor.pool_size | to_json }}
+EF_PROCESSOR_TRANSLATE_KEEP_IDS: {{ netobserv_flow_config_processor.translate_keep_ids | to_json }}
+EF_PROCESSOR_DURATION_PRECISION: {{ netobserv_flow_config_processor.duration_precision | to_json }}
+EF_PROCESSOR_TIMESTAMP_PRECISION: {{ netobserv_flow_config_processor.timestamp_precision | to_json }}
+EF_PROCESSOR_PERCENT_NORM: {{ netobserv_flow_config_processor.percent_norm | to_json }}
+EF_PROCESSOR_KEEP_CPU_TICKS: {{ netobserv_flow_config_processor.keep_cpu_ticks | to_json }}
+EF_PROCESSOR_DROP_FIELDS: {{ netobserv_flow_config_processor.drop_fields | to_json }}
+
+# https://www.elastiflow.com/docs/config_ref/flowcoll/processor
+EF_PROCESSOR_DECODE_IPFIX_ENABLE: {{ netobserv_flow_config_processor.decode_ipfix_enable | to_json }}
+EF_PROCESSOR_DECODE_NETFLOW1_ENABLE: {{ netobserv_flow_config_processor.decode_netflow1_enable | to_json }}
+EF_PROCESSOR_DECODE_NETFLOW5_ENABLE: {{ netobserv_flow_config_processor.decode_netflow5_enable | to_json }}
+EF_PROCESSOR_DECODE_NETFLOW6_ENABLE: {{ netobserv_flow_config_processor.decode_netflow6_enable | to_json }}
+EF_PROCESSOR_DECODE_NETFLOW7_ENABLE: {{ netobserv_flow_config_processor.decode_netflow7_enable | to_json }}
+EF_PROCESSOR_DECODE_NETFLOW9_ENABLE: {{ netobserv_flow_config_processor.decode_netflow9_enable | to_json }}
+EF_PROCESSOR_DECODE_SFLOW5_ENABLE: {{ netobserv_flow_config_processor.decode_sflow5_enable | to_json }}
+EF_PROCESSOR_DECODE_SFLOW_FLOWS_ENABLE: {{ netobserv_flow_config_processor.decode_sflow_flows_enable | to_json }}
+{% if netobserv_flow_config_processor.decode_sflow_flows_enable -%}
+EF_PROCESSOR_DECODE_SFLOW_FLOWS_KEEP_SAMPLES: {{ netobserv_flow_config_processor.decode_sflow_flows_keep_samples | to_json }}
+EF_PROCESSOR_DECODE_SFLOW_COUNTERS_ENABLE: {{ netobserv_flow_config_processor.decode_sflow_counters_enable | to_json  }}
+{% endif -%}
+EF_PROCESSOR_DECODE_MAX_RECORDS_PER_PACKET: {{ netobserv_flow_config_processor.decode_max_records_per_packet | to_json }}
+# https://www.elastiflow.com/docs/config_ref/flowcoll/processor#ef_processor_enrich_asn_pref
+EF_PROCESSOR_ENRICH_ASN_PREF: {{ netobserv_flow_config_processor.enrich_asn_pref }}
+EF_PROCESSOR_ENRICH_JOIN_ASN: {{ netobserv_flow_config_processor.enrich_join_asn | to_json }}
+EF_PROCESSOR_ENRICH_JOIN_GEOIP: {{ netobserv_flow_config_processor.enrich_join_geoip | to_json }}
+EF_PROCESSOR_ENRICH_JOIN_NETATTR: {{ netobserv_flow_config_processor.enrich_join_netattr | to_json }}
+EF_PROCESSOR_ENRICH_JOIN_SUBNETATTR: {{ netobserv_flow_config_processor.enrich_join_subnetattr | to_json }}
+EF_PROCESSOR_ENRICH_JOIN_SEC: {{ netobserv_flow_config_processor.enrich_join_sec | to_json }}
+EF_PROCESSOR_EXPAND_CLISRV: {{ netobserv_flow_config_processor.expand_clisrv | to_json }}
+EF_PROCESSOR_EXPAND_CLISRV_NO_L4_PORTS: {{ netobserv_flow_config_processor.expand_clisrv_no_l4_ports | to_json }}
+{% if netobserv_flow_config_processor.ifa_enable -%}
+EF_PROCESSOR_IFA_ENABLE: {{ netobserv_flow_config_processor.ifa_enable | to_json }}
+EF_PROCESSOR_IFA_WORKER_SIZE: {{ netobserv_flow_config_processor.ifa_worker_size | to_json }}
+{% endif %}
+# https://www.elastiflow.com/docs/config_ref/flowcoll/sampling
+EF_PROCESSOR_ENRICH_SAMPLERATE_CACHE_SIZE: {{ netobserv_flow_config_processor.enrich_samplerate_cache_size | to_json }}
+{% if netobserv_flow_config_processor.enrich_samplerate_userdef_enable -%}
+EF_PROCESSOR_ENRICH_SAMPLERATE_USERDEF_ENABLE: {{ netobserv_flow_config_processor.enrich_samplerate_userdef_enable | to_json }}
+EF_PROCESSOR_ENRICH_SAMPLERATE_USERDEF_PATH: {{ netobserv_flow_config_processor.enrich_samplerate_userdef_path | to_json }}
+EF_PROCESSOR_ENRICH_SAMPLERATE_USERDEF_OVERRIDE: {{ netobserv_flow_config_processor.enrich_samplerate_userdef_override | to_json }}
+{% endif %}
+
+###############
+# Enrichment
+###############
+# https://www.elastiflow.com/docs/category/configuration-reference/category/net-observ-flow/category/enrichment
+# https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_general
+{% if netobserv_flow_config_processor_enrich_totals_if_no_deltas %}EF_PROCESSOR_ENRICH_TOTALS_IF_NO_DELTAS: {{ netobserv_flow_config_processor_enrich_totals_if_no_deltas | to_json ~ "\n" }}{% endif %}
+# https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_apps
+{% if netobserv_flow_config_processor_enrich_app.id_enable -%}
+EF_PROCESSOR_ENRICH_APP_ID_ENABLE: {{ netobserv_flow_config_processor_enrich_app.id_enable | to_json }}
+EF_PROCESSOR_ENRICH_APP_ID_PATH: {{ netobserv_flow_config_processor_enrich_app.id_path | to_json }}
+EF_PROCESSOR_ENRICH_APP_ID_TTL: {{ netobserv_flow_config_processor_enrich_app.id_ttl | to_json }}
+{% endif -%}
+{% if netobserv_flow_config_processor_enrich_app.ipport_enable -%}
+EF_PROCESSOR_ENRICH_APP_IPPORT_ENABLE: {{ netobserv_flow_config_processor_enrich_app.ipport_enable | to_json }}
+EF_PROCESSOR_ENRICH_APP_IPPORT_PATH: {{ netobserv_flow_config_processor_enrich_app.ipport_path | to_json }}
+EF_PROCESSOR_ENRICH_APP_IPPORT_TTL: {{ netobserv_flow_config_processor_enrich_app.ipport_ttl | to_json }}
+EF_PROCESSOR_ENRICH_APP_IPPORT_PRIVATE: {{ netobserv_flow_config_processor_enrich_app.ipport_private | to_json }}
+EF_PROCESSOR_ENRICH_APP_IPPORT_PUBLIC: {{ netobserv_flow_config_processor_enrich_app.ipport_public | to_json }}
+{% endif -%}
+EF_PROCESSOR_ENRICH_APP_REFRESH_RATE: {{ netobserv_flow_config_processor_enrich_app.refresh_rate | to_json }}
+
+{% if netobserv_flow_config_processor_enrich_ipaddr_dns.enable -%}
+# https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_ip_hostname
+EF_PROCESSOR_ENRICH_IPADDR_DNS_ENABLE: {{ netobserv_flow_config_processor_enrich_ipaddr_dns.enable | to_json }}
+EF_PROCESSOR_ENRICH_IPADDR_DNS_NAMESERVER_IP: {{ netobserv_flow_config_processor_enrich_ipaddr_dns.nameserver_ip | to_json }}
+EF_PROCESSOR_ENRICH_IPADDR_DNS_NAMESERVER_TIMEOUT: {{ netobserv_flow_config_processor_enrich_ipaddr_dns.nameserver_timeout | to_json }}
+EF_PROCESSOR_ENRICH_IPADDR_DNS_RESOLVE_PRIVATE: {{ netobserv_flow_config_processor_enrich_ipaddr_dns.resolve_private | to_json }}
+EF_PROCESSOR_ENRICH_IPADDR_DNS_RESOLVE_PUBLIC: {{ netobserv_flow_config_processor_enrich_ipaddr_dns.resolve_public | to_json }}
+{% if netobserv_flow_config_processor_enrich_ipaddr_dns.userdef_path != None -%}
+EF_PROCESSOR_ENRICH_IPADDR_DNS_USERDEF_PATH: {{ netobserv_flow_config_processor_enrich_ipaddr_dns.userdef_path | to_json }}
+EF_PROCESSOR_ENRICH_IPADDR_DNS_USERDEF_REFRESH_RATE: {{ netobserv_flow_config_processor_enrich_ipaddr_dns.userdef_refresh_rate | to_json }}
+{% endif -%}
+{% if netobserv_flow_config_processor_enrich_ipaddr_dns.inclexcl_path | length > 0 -%}
+EF_PROCESSOR_ENRICH_IPADDR_DNS_INCLEXCL_PATH: {{ netobserv_flow_config_processor_enrich_ipaddr_dns.inclexcl_path | to_json }}
+EF_PROCESSOR_ENRICH_IPADDR_DNS_INCLEXCL_REFRESH_RATE: {{ netobserv_flow_config_processor_enrich_ipaddr_dns.inclexcl_refresh_rate | to_json }}
+{% endif -%}
+{% endif %}
+
+{% if netobserv_flow_config_processor_enrich_ipaddr_maxmind.asn_enable -%}
+# https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_ip_maxmind#ef_processor_enrich_ipaddr_maxmind_asn_enable
+EF_PROCESSOR_ENRICH_IPADDR_MAXMIND_ASN_ENABLE: {{ netobserv_flow_config_processor_enrich_ipaddr_maxmind.asn_enable | to_json }}
+EF_PROCESSOR_ENRICH_IPADDR_MAXMIND_ASN_PATH: {{ netobserv_flow_config_processor_enrich_ipaddr_maxmind.asn_path | to_json }}
+{% endif -%}
+{% if netobserv_flow_config_processor_enrich_ipaddr_maxmind.geoip_enable -%}
+# https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_ip_maxmind#ef_processor_enrich_ipaddr_maxmind_geoip_enable
+EF_PROCESSOR_ENRICH_IPADDR_MAXMIND_GEOIP_ENABLE: {{ netobserv_flow_config_processor_enrich_ipaddr_maxmind.geoip_enable | to_json }}
+EF_PROCESSOR_ENRICH_IPADDR_MAXMIND_GEOIP_PATH: {{ netobserv_flow_config_processor_enrich_ipaddr_maxmind.geoip_path | to_json }}
+EF_PROCESSOR_ENRICH_IPADDR_MAXMIND_GEOIP_VALUES: {{ netobserv_flow_config_processor_enrich_ipaddr_maxmind.geoip_values | to_json }}
+EF_PROCESSOR_ENRICH_IPADDR_MAXMIND_GEOIP_LANG: {{ netobserv_flow_config_processor_enrich_ipaddr_maxmind.geoip_lang | to_json }}
+EF_PROCESSOR_ENRICH_IPADDR_MAXMIND_GEOIP_INCLEXCL_PATH: {{ netobserv_flow_config_processor_enrich_ipaddr_maxmind.geoip_inclexcl_path | to_json }}
+EF_PROCESSOR_ENRICH_IPADDR_MAXMIND_GEOIP_INCLEXCL_REFRESH_RATE: {{ netobserv_flow_config_processor_enrich_ipaddr_maxmind.geoip_inclexcl_refresh_rate | to_json }}
+{% endif %}
+
+# https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_ip_netintel
+EF_PROCESSOR_ENRICH_IPADDR_NETINTEL_ENABLE: {{ netobserv_flow_config_processor_enrich_ipaddr_netintel.enable | to_json }}
+{% if netobserv_flow_config_processor_enrich_ipaddr_netintel.enable -%}
+EF_PROCESSOR_ENRICH_IPADDR_NETINTEL_AS_PREFIX_PRECISION: {{ netobserv_flow_config_processor_enrich_ipaddr_netintel.as_prefix_precision | to_json }}
+{% endif -%}
+{% if netobserv_flow_config_processor_enrich_ipaddr_netintel.threat_collection_path | length > 0 %}EF_PROCESSOR_ENRICH_IPADDR_NETINTEL_THREAT_COLLECTION_PATH: {{ netobserv_flow_config_processor_enrich_ipaddr_netintel.threat_collection_path | to_json ~ "\n" }}{% endif %}
+{% if netobserv_flow_config_processor_enrich_ipaddr_netintel.ip_db_path | length > 0 %}EF_PROCESSOR_ENRICH_IPADDR_NETINTEL_IP_DB_PATH: {{ netobserv_flow_config_processor_enrich_ipaddr_netintel.ip_db_path | to_json ~ "\n" }}{% endif %}
+
+{% if netobserv_flow_config_processor_enrich_ipaddr_metadata.enable -%}
+# https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_ip_udm/
+EF_PROCESSOR_ENRICH_IPADDR_METADATA_ENABLE: {{ netobserv_flow_config_processor_enrich_ipaddr_metadata.enable | to_json }}
+EF_PROCESSOR_ENRICH_IPADDR_METADATA_USERDEF_PATH: {{ netobserv_flow_config_processor_enrich_ipaddr_metadata.userdef_path | to_json }}
+EF_PROCESSOR_ENRICH_IPADDR_METADATA_REFRESH_RATE: {{ netobserv_flow_config_processor_enrich_ipaddr_metadata.refresh_rate | to_json }}
+{% endif %}
+
+# https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_netif_options
+EF_PROCESSOR_ENRICH_NETIF_FLOW_OPTIONS_ENABLE: {{ netobserv_flow_config_processor_enrich_netif_flow_options_enable | to_json }}
+
+{% if netobserv_flow_config_processor_enrich_netif_snmp.enable -%}
+# https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_netif_snmp
+EF_PROCESSOR_ENRICH_NETIF_SNMP_ENABLE: {{ netobserv_flow_config_processor_enrich_netif_snmp.enable | to_json }}
+EF_PROCESSOR_ENRICH_NETIF_SNMP_PORT: {{ netobserv_flow_config_processor_enrich_netif_snmp.port | to_json }}
+EF_PROCESSOR_ENRICH_NETIF_SNMP_VERSION: {{ netobserv_flow_config_processor_enrich_netif_snmp.version | to_json }}
+EF_PROCESSOR_ENRICH_NETIF_SNMP_COMMUNITIES: {{ netobserv_flow_config_processor_enrich_netif_snmp.communities | to_json }}
+EF_PROCESSOR_ENRICH_NETIF_SNMP_V3_USERNAME: {{ netobserv_flow_config_processor_enrich_netif_snmp.v3_username | to_json }}
+EF_PROCESSOR_ENRICH_NETIF_SNMP_V3_AUTHENTICATION_PROTOCOL: {{ netobserv_flow_config_processor_enrich_netif_snmp.v3_authentication_protocol | to_json }}
+EF_PROCESSOR_ENRICH_NETIF_SNMP_V3_AUTHENTICATION_PASSPHRASE: {{ netobserv_flow_config_processor_enrich_netif_snmp.v3_authentication_passphrase | to_json }}
+EF_PROCESSOR_ENRICH_NETIF_SNMP_V3_PRIVACY_PROTOCOL: {{ netobserv_flow_config_processor_enrich_netif_snmp.v3_privacy_protocol | to_json }}
+EF_PROCESSOR_ENRICH_NETIF_SNMP_V3_PRIVACY_PASSPHRASE: {{ netobserv_flow_config_processor_enrich_netif_snmp.v3_privacy_passphrase | to_json }}
+EF_PROCESSOR_ENRICH_NETIF_SNMP_TIMEOUT: {{ netobserv_flow_config_processor_enrich_netif_snmp.timeout | to_json }}
+EF_PROCESSOR_ENRICH_NETIF_SNMP_RETRIES: {{ netobserv_flow_config_processor_enrich_netif_snmp.retries | to_json }}
+{% endif %}
+
+{% if netobserv_flow_config_processor_enrich_netif_metadata.enable -%}
+# https://www.elastiflow.com/docs/category/configuration-reference/category/net-observ-flow/category/enrichment/category/network-interfaces
+EF_PROCESSOR_ENRICH_NETIF_METADATA_ENABLE: {{ netobserv_flow_config_processor_enrich_netif_metadata.enable | to_json }}
+EF_PROCESSOR_ENRICH_NETIF_METADATA_USERDEF_PATH: {{ netobserv_flow_config_processor_enrich_netif_metadata.userdef_path | to_json }}
+EF_PROCESSOR_ENRICH_NETIF_METADATA_REFRESH_RATE: {{ netobserv_flow_config_processor_enrich_netif_metadata.refresh_rate | to_json }}
+{% endif %}
+
+# https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_comcon#community-id
+EF_PROCESSOR_ENRICH_COMMUNITYID_ENABLE: {{ netobserv_flow_config_processor_enrich_communityid.enable | to_json }}
+EF_PROCESSOR_ENRICH_COMMUNITYID_SEED: {{ netobserv_flow_config_processor_enrich_communityid.seed | to_json }}
+# https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_comcon#conversation-id
+EF_PROCESSOR_ENRICH_CONVERSATIONID_ENABLE: {{ netobserv_flow_config_processor_enrich_conversationid.enable | to_json }}
+EF_PROCESSOR_ENRICH_CONVERSATIONID_SEED: {{ netobserv_flow_config_processor_enrich_conversationid.seed | to_json }}
+
+############
+# Outputs
+############
+# https://www.elastiflow.com/docs/category/configuration-reference/category/common-options/category/outputs
+## https://www.elastiflow.com/docs/config_ref/common/output_stdout
+{% if netobserv_flow_config_output_stdout.enable -%}
+EF_OUTPUT_STDOUT_ENABLE: {{ netobserv_flow_config_output_stdout.enable | to_json }}
+EF_OUTPUT_STDOUT_FORMAT: {{ netobserv_flow_config_output_stdout.format | to_json }}
+EF_OUTPUT_STDOUT_ALLOWED_RECORD_TYPES:  {{ netobserv_flow_config_output_stdout.allowed_record_types | to_json }}
+{% endif %}
+
+{% if netobserv_flow_config_output_elasticsearch.enable -%}
+# https://www.elastiflow.com/docs/config_ref/common/output_elasticsearch
+EF_OUTPUT_ELASTICSEARCH_ENABLE: {{ netobserv_flow_config_output_elasticsearch.enable | to_json }}
+EF_OUTPUT_ELASTICSEARCH_ECS_ENABLE: {{ netobserv_flow_config_output_elasticsearch.ecs_enable | to_json }}
+EF_OUTPUT_ELASTICSEARCH_BATCH_DEADLINE: {{ netobserv_flow_config_output_elasticsearch.batch_deadline | to_json }}
+EF_OUTPUT_ELASTICSEARCH_BATCH_MAX_BYTES: {{ netobserv_flow_config_output_elasticsearch.batch_max_bytes | to_json }}
+EF_OUTPUT_ELASTICSEARCH_TIMESTAMP_SOURCE: {{ netobserv_flow_config_output_elasticsearch.timestamp_source | to_json }}
+EF_OUTPUT_ELASTICSEARCH_INDEX_PERIOD: {{ netobserv_flow_config_output_elasticsearch.index_period | to_json }}
+EF_OUTPUT_ELASTICSEARCH_TSDS_ENABLE: {{ netobserv_flow_config_output_elasticsearch.tsds_enable | to_json }}
+EF_OUTPUT_ELASTICSEARCH_INDEX_SUFFIX: {{ netobserv_flow_config_output_elasticsearch.index_suffix | to_json }}
+EF_OUTPUT_ELASTICSEARCH_INDEX_TEMPLATE_ENABLE: {{ netobserv_flow_config_output_elasticsearch.index_template_enable | to_json }}
+EF_OUTPUT_ELASTICSEARCH_INDEX_TEMPLATE_OVERWRITE: {{ netobserv_flow_config_output_elasticsearch.index_template_overwrite | to_json }}
+EF_OUTPUT_ELASTICSEARCH_INDEX_TEMPLATE_SHARDS: {{ netobserv_flow_config_output_elasticsearch.index_template_shards | to_json }}
+EF_OUTPUT_ELASTICSEARCH_INDEX_TEMPLATE_REPLICAS: {{ netobserv_flow_config_output_elasticsearch.index_template_replicas | to_json }}
+EF_OUTPUT_ELASTICSEARCH_INDEX_TEMPLATE_REFRESH_INTERVAL: {{ netobserv_flow_config_output_elasticsearch.index_template_refresh_interval | to_json }}
+EF_OUTPUT_ELASTICSEARCH_INDEX_TEMPLATE_CODEC: {{ netobserv_flow_config_output_elasticsearch.index_template_codec | to_json }}
+EF_OUTPUT_ELASTICSEARCH_INDEX_TEMPLATE_ILM_LIFECYCLE: {{ netobserv_flow_config_output_elasticsearch.index_template_ilm_lifecycle | to_json }}
+EF_OUTPUT_ELASTICSEARCH_INDEX_TEMPLATE_PIPELINE_DEFAULT: {{ netobserv_flow_config_output_elasticsearch.index_template_pipeline_default | to_json }}
+EF_OUTPUT_ELASTICSEARCH_INDEX_TEMPLATE_PIPELINE_FINAL: {{ netobserv_flow_config_output_elasticsearch.index_template_pipeline_final | to_json }}
+EF_OUTPUT_ELASTICSEARCH_ADDRESSES: {{ netobserv_flow_config_output_elasticsearch.addresses | to_json }}
+EF_OUTPUT_ELASTICSEARCH_USERNAME: {{ netobserv_flow_config_output_elasticsearch.username | to_json }}
+EF_OUTPUT_ELASTICSEARCH_PASSWORD: {{ netobserv_flow_config_output_elasticsearch.password | to_json }}
+EF_OUTPUT_ELASTICSEARCH_CLOUD_ID: {{ netobserv_flow_config_output_elasticsearch.cloud.id | to_json }}
+EF_OUTPUT_ELASTICSEARCH_API_KEY: {{ netobserv_flow_config_output_elasticsearch.cloud.api_key | to_json }}
+{% if netobserv_flow_config_output_elasticsearch.tls.enable -%}
+EF_OUTPUT_ELASTICSEARCH_CLIENT_CA_CERT_FILEPATH: {{ netobserv_flow_config_output_elasticsearch.tls.client_ca_cert_filepath | to_json }}
+EF_OUTPUT_ELASTICSEARCH_CLIENT_CERT_FILEPATH: {{ netobserv_flow_config_output_elasticsearch.tls.client_cert_filepath | to_json }}
+EF_OUTPUT_ELASTICSEARCH_CLIENT_KEY_FILEPATH: {{ netobserv_flow_config_output_elasticsearch.tls.client_key_filepath | to_json }}
+EF_OUTPUT_ELASTICSEARCH_TLS_ENABLE: {{ netobserv_flow_config_output_elasticsearch.tls.enable | to_json }}
+EF_OUTPUT_ELASTICSEARCH_TLS_SKIP_VERIFICATION: {{ netobserv_flow_config_output_elasticsearch.tls.skip_verification | to_json }}
+EF_OUTPUT_ELASTICSEARCH_TLS_CA_CERT_FILEPATH: {{ netobserv_flow_config_output_elasticsearch.tls.ca_cert_filepath | to_json }}
+{% endif -%}
+EF_OUTPUT_ELASTICSEARCH_RETRY_ENABLE: {{ netobserv_flow_config_output_elasticsearch.retry_enable | to_json }}
+EF_OUTPUT_ELASTICSEARCH_RETRY_ON_TIMEOUT_ENABLE: {{ netobserv_flow_config_output_elasticsearch.retry_on_timeout_enable | to_json }}
+EF_OUTPUT_ELASTICSEARCH_MAX_RETRIES: {{ netobserv_flow_config_output_elasticsearch.max_retries | to_json }}
+EF_OUTPUT_ELASTICSEARCH_RETRY_BACKOFF: {{ netobserv_flow_config_output_elasticsearch.retry_backoff | to_json }}
+EF_OUTPUT_ELASTICSEARCH_STORAGE_OPTIMIZATION_ENABLE: {{ netobserv_flow_config_output_elasticsearch.storage_optimization_enable | to_json }}
+EF_OUTPUT_ELASTICSEARCH_DROP_FIELDS: {{ netobserv_flow_config_output_elasticsearch.drop_fields | to_json }}
+EF_OUTPUT_ELASTICSEARCH_ALLOWED_RECORD_TYPES: {{ netobserv_flow_config_output_elasticsearch.allowed_record_types | to_json }}
+{% endif %}
+
+
+{% if netobserv_flow_config_output_opensearch.enable -%}
+# https://www.elastiflow.com/docs/config_ref/common/output_opensearch
+EF_OUTPUT_OPENSEARCH_ENABLE: {{ netobserv_flow_config_output_opensearch.enable | to_json }}
+EF_OUTPUT_OPENSEARCH_ECS_ENABLE: {{ netobserv_flow_config_output_opensearch.ecs_enable | to_json }}
+EF_OUTPUT_OPENSEARCH_BATCH_DEADLINE: {{ netobserv_flow_config_output_opensearch.batch_deadline | to_json }}
+EF_OUTPUT_OPENSEARCH_BATCH_MAX_BYTES: {{ netobserv_flow_config_output_opensearch.batch_max_bytes | to_json }}
+EF_OUTPUT_OPENSEARCH_TIMESTAMP_SOURCE: {{ netobserv_flow_config_output_opensearch.timestamp_source | to_json }}
+EF_OUTPUT_OPENSEARCH_INDEX_PERIOD: {{ netobserv_flow_config_output_opensearch.index_period | to_json }}
+EF_OUTPUT_OPENSEARCH_INDEX_SUFFIX: {{ netobserv_flow_config_output_opensearch.index_suffix | to_json }}
+EF_OUTPUT_OPENSEARCH_INDEX_TEMPLATE_ENABLE: {{ netobserv_flow_config_output_opensearch.index_template_enable | to_json }}
+EF_OUTPUT_OPENSEARCH_INDEX_TEMPLATE_OVERWRITE: {{ netobserv_flow_config_output_opensearch.index_template_overwrite | to_json }}
+EF_OUTPUT_OPENSEARCH_INDEX_TEMPLATE_SHARDS: {{ netobserv_flow_config_output_opensearch.index_template_shards | to_json }}
+EF_OUTPUT_OPENSEARCH_INDEX_TEMPLATE_REPLICAS: {{ netobserv_flow_config_output_opensearch.index_template_replicas | to_json }}
+EF_OUTPUT_OPENSEARCH_INDEX_TEMPLATE_REFRESH_INTERVAL: {{ netobserv_flow_config_output_opensearch.index_template_refresh_interval | to_json }}
+EF_OUTPUT_OPENSEARCH_INDEX_TEMPLATE_CODEC: {{ netobserv_flow_config_output_opensearch.index_template_codec | to_json }}
+EF_OUTPUT_OPENSEARCH_INDEX_TEMPLATE_ISM_POLICY: {{ netobserv_flow_config_output_opensearch.index_template_ism_policy | to_json }}
+EF_OUTPUT_OPENSEARCH_INDEX_TEMPLATE_PIPELINE_DEFAULT: {{ netobserv_flow_config_output_opensearch.index_template_pipeline_default | to_json }}
+EF_OUTPUT_OPENSEARCH_INDEX_TEMPLATE_PIPELINE_FINAL: {{ netobserv_flow_config_output_opensearch.index_template_pipeline_final | to_json }}
+EF_OUTPUT_OPENSEARCH_ADDRESSES: {{ netobserv_flow_config_output_opensearch.addresses | to_json }}
+EF_OUTPUT_OPENSEARCH_USERNAME: {{ netobserv_flow_config_output_opensearch.username | to_json }}
+EF_OUTPUT_OPENSEARCH_PASSWORD: {{ netobserv_flow_config_output_opensearch.password | to_json }}
+{% if netobserv_flow_config_output_opensearch.aws.access_key != None and netobserv_flow_config_output_opensearch.aws.secret_key != None -%}
+EF_OUTPUT_OPENSEARCH_AWS_ACCESS_KEY: {{ netobserv_flow_config_output_opensearch.aws.access_key | to_json }}
+EF_OUTPUT_OPENSEARCH_AWS_SECRET_KEY: {{ netobserv_flow_config_output_opensearch.aws.secret_key | to_json }}
+EF_OUTPUT_OPENSEARCH_AWS_REGION: {{ netobserv_flow_config_output_opensearch.aws.region | to_json }}
+{% endif -%}
+{% if netobserv_flow_config_output_opensearch.tls.enable -%}
+EF_OUTPUT_OPENSEARCH_CLIENT_CA_CERT_FILEPATH: {{ netobserv_flow_config_output_opensearch.tls.client_ca_cert_filepath | to_json }}
+EF_OUTPUT_OPENSEARCH_CLIENT_CERT_FILEPATH: {{ netobserv_flow_config_output_opensearch.tls.client_cert_filepath | to_json }}
+EF_OUTPUT_OPENSEARCH_CLIENT_KEY_FILEPATH: {{ netobserv_flow_config_output_opensearch.tls.client_key_filepath | to_json }}
+EF_OUTPUT_OPENSEARCH_TLS_ENABLE: {{ netobserv_flow_config_output_opensearch.tls.enable | to_json }}
+EF_OUTPUT_OPENSEARCH_TLS_SKIP_VERIFICATION: {{ netobserv_flow_config_output_opensearch.tls.skip_verification | to_json }}
+EF_OUTPUT_OPENSEARCH_TLS_CA_CERT_FILEPATH: {{ netobserv_flow_config_output_opensearch.tls.ca_cert_filepath | to_json }}
+{% endif -%}
+EF_OUTPUT_OPENSEARCH_RETRY_ENABLE: {{ netobserv_flow_config_output_opensearch.retry_enable | to_json }}
+EF_OUTPUT_OPENSEARCH_RETRY_ON_TIMEOUT_ENABLE: {{ netobserv_flow_config_output_opensearch.retry_on_timeout_enable | to_json }}
+EF_OUTPUT_OPENSEARCH_MAX_RETRIES: {{ netobserv_flow_config_output_opensearch.max_retries | to_json }}
+EF_OUTPUT_OPENSEARCH_RETRY_BACKOFF: {{ netobserv_flow_config_output_opensearch.retry_backoff | to_json }}
+EF_OUTPUT_OPENSEARCH_STORAGE_OPTIMIZATION_ENABLE: {{ netobserv_flow_config_output_opensearch.storage_optimization_enable | to_json }}
+EF_OUTPUT_OPENSEARCH_DROP_FIELDS: {{ netobserv_flow_config_output_opensearch.drop_fields | to_json }}
+EF_OUTPUT_OPENSEARCH_ALLOWED_RECORD_TYPES: {{ netobserv_flow_config_output_opensearch.allowed_record_types | to_json }}
+{% endif %}
+
+###########
+# Inputs
+###########
+# https://www.elastiflow.com/docs/category/configuration-reference/category/net-observ-flow/category/inputs
+# https://www.elastiflow.com/docs/config_ref/flowcoll/input_udp
+EF_FLOW_SERVER_UDP_IP: {{ netobserv_flow_config_input_flow.server_udp_ip | to_json }}
+EF_FLOW_SERVER_UDP_PORT: {{ netobserv_flow_config_input_flow.server_udp_port | to_json }}
+EF_FLOW_SERVER_UDP_READ_BUFFER_MAX_SIZE: {{ netobserv_flow_config_input_flow.server_udp_read_buffer_max_size | to_json }}
+EF_FLOW_PACKET_STREAM_MAX_SIZE: {{ netobserv_flow_config_input_flow.packet_stream_max_size | to_json }}
+
+{% if netobserv_flow_config_input_aws_vpc_flow_log_firehose.http_enable -%}
+EF_AWS_VPC_FLOW_LOG_FIREHOSE_HTTP_ENABLE: {{ netobserv_flow_config_input_aws_vpc_flow_log_firehose.http_enable | to_json }}
+EF_AWS_VPC_FLOW_LOG_FIREHOSE_HTTP_PORT: {{ netobserv_flow_config_input_aws_vpc_flow_log_firehose.http_port | to_json }}
+EF_AWS_VPC_FLOW_LOG_FIREHOSE_HTTP_ACCESS_KEY: {{ netobserv_flow_config_input_aws_vpc_flow_log_firehose.http_access_key | to_json }}
+EF_AWS_VPC_FLOW_LOG_FIREHOSE_HTTP_LOG_FORMAT: {{ netobserv_flow_config_input_aws_vpc_flow_log_firehose.http_log_format | to_json }}
+{% endif %}
+
+{% if netobserv_flow_config_input_aws_vpc_flow_log_s3.enable -%}
+# https://www.elastiflow.com/docs/config_ref/flowcoll/input_aws_s3
+EF_AWS_VPC_FLOW_LOG_S3_ENABLE: {{ netobserv_flow_config_input_aws_vpc_flow_log_s3.enable | to_json }}
+EF_AWS_VPC_FLOW_LOG_S3_BUCKET: {{ netobserv_flow_config_input_aws_vpc_flow_log_s3.bucket | to_json }}
+EF_AWS_VPC_FLOW_LOG_S3_PREFIX: {{ netobserv_flow_config_input_aws_vpc_flow_log_s3.prefix | to_json }}
+{% if netobserv_flow_config_input_aws_vpc_flow_log_s3.pool_size != None %}EF_AWS_VPC_FLOW_LOG_S3_POOL_SIZE: {{ netobserv_flow_config_input_aws_vpc_flow_log_s3.pool_size | to_json ~ "\n" }}{% endif %}
+{% if netobserv_flow_config_input_aws_vpc_flow_log_s3.tls.enable -%}
+EF_AWS_VPC_FLOW_LOG_S3_TLS_ENABLE: {{ netobserv_flow_config_input_aws_vpc_flow_log_s3.tls.enable | to_json }}
+EF_AWS_VPC_FLOW_LOG_S3_TLS_SKIP_VERIFICATION: {{ netobserv_flow_config_input_aws_vpc_flow_log_s3.tls.skip_verification | to_json }}
+EF_AWS_VPC_FLOW_LOG_S3_TLS_CA_CERT_FILEPATH: {{ netobserv_flow_config_input_aws_vpc_flow_log_s3.tls.ca_cert_filepath | to_json }}
+EF_AWS_VPC_FLOW_LOG_S3_TLS_MIN_VERSION: {{ netobserv_flow_config_input_aws_vpc_flow_log_s3.tls.min_version | to_json }}
+{% endif -%}
+{% if netobserv_flow_config_input_aws_vpc_flow_log_s3.firehose_s3_enable -%}
+EF_AWS_VPC_FLOW_LOG_FIREHOSE_S3_ENABLE: {{ netobserv_flow_config_input_aws_vpc_flow_log_s3.firehose_s3_enable | to_json }}
+EF_AWS_VPC_FLOW_LOG_FIREHOSE_S3_LOG_FORMAT: {{ netobserv_flow_config_input_aws_vpc_flow_log_s3.firehose_s3_log_format | to_json }}
+{% endif -%}
+{% if netobserv_flow_config_input_aws_vpc_flow_log_s3.aws.access_key != None and netobserv_flow_config_input_aws_vpc_flow_log_s3.aws.secret_key != None -%}
+AWS_ACCESS_KEY_ID: {{ netobserv_flow_config_input_aws_vpc_flow_log_s3.aws.access_key | to_json }}
+AWS_SECRET_ACCESS_KEY: {{ netobserv_flow_config_input_aws_vpc_flow_log_s3.aws.secret_key | to_json }}
+{% endif -%}
+{% endif %}
+
+{% if netobserv_flow_config_input_azure_flow_log_vnet.enable -%}
+# https://www.elastiflow.com/docs/config_ref/flowcoll/input_azure_vnet
+EF_AZURE_FLOW_LOG_VNET_ENABLE: {{ netobserv_flow_config_input_azure_flow_log_vnet.enable | to_json }}
+EF_AZURE_FLOW_LOG_VNET_CONFIG_FILE_PATH: {{ netobserv_flow_config_input_azure_flow_log_vnet.config_file_path | to_json }}
+{% endif %}
+
+{% if netobserv_flow_config_input_benchmark.enable -%}
+# https://www.elastiflow.com/docs/config_ref/flowcoll/input_benchmark
+EF_INPUT_FLOW_BENCHMARK_ENABLE: {{ netobserv_flow_config_input_benchmark.enable | to_json }}
+EF_INPUT_FLOW_BENCHMARK_PACKET_FILEPATH: {{ netobserv_flow_config_input_benchmark.packet_filepath | to_json }}
+{% endif %}
+
+{% if netobserv_flow_custom_config_values | length > 0 %}
+{{ netobserv_flow_custom_config_values | to_nice_yaml }}
+{% endif %}

@@ -1,0 +1,35 @@
+[project]
+name = "modules"
+version = "0.1.0"
+requires-python = ">=3.11,<=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "aar-doc",
+    "ansible-core>=2.18",
+    "ansible-lint>=25.8.2",
+    "pytest>=8.3.5",
+    "pytest-cov>=6.0.0",
+    "pytest-forked>=1.6.0",
+    "pytest-mock>=3.14.1",
+    "ruff>=0.11.2",
+]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "ALL"
+]
+per-file-ignores = { "**/test_*.py" = ["S101", "D", "ANN", "INP001", "EXE001", "SLF001"] }
+ignore = [
+    # Following are fine
+    "D103",
+    # Following are python2 -> python3 warnings. Ignoring since modules should work with python2 (best effort)
+    "UP001", "UP006", "UP010",
+]
+
+[tool.uv.sources]
+aar-doc = { git = "https://github.com/telekom-mms/Automated-Ansible-Role-Documentation.git", rev = "main" }

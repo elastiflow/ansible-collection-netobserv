@@ -1,0 +1,12 @@
+exclude_paths:
+  - .ansible/
+  - .github/workflows/*.yaml
+  - .github/workflows/*.yml
+  - .github/actions/**/*.yml
+  - development/
+
+enable_list:
+  - empty-string-compare
+
+skip_list:
+  - galaxy[no-changelog]

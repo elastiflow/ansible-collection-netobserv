@@ -1,0 +1,6 @@
+---
+- name: Restart NetObserv Flow
+  ansible.builtin.service:
+    name: flowcoll
+    state: restarted
+    enabled: true

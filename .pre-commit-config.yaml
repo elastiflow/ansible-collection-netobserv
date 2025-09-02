@@ -1,0 +1,28 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0 # Get the latest from: https://github.com/pre-commit/pre-commit-hooks/releases
+    hooks:
+      - id: trailing-whitespace
+        exclude: \.(md)$
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      - id: check-json
+        files: \.(json)$
+      - id: check-yaml
+        files: \.(yaml|yml)$
+  - repo: local
+    hooks:
+      - id: trivy
+        name: trivy
+        language: system
+        pass_filenames: false
+        entry: |
+          trivy -q config --skip-files '*.hcl' -c trivy.yml --exit-code 1 .
+  - repo: https://github.com/ansible/ansible-lint.git
+    rev: v25.5.0
+    hooks:
+      - id: ansible-lint
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.18.1
+    hooks:
+      - id: markdownlint-cli2

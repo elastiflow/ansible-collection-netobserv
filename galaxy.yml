@@ -1,0 +1,45 @@
+namespace: elastiflow
+name: netobserv
+version: 0.1.1
+readme: README.md
+authors:
+  - ElastiFlow Engineering Team <engineering@elastiflow.com>
+description: Ansible collection for ElastiFlow NetObserv roles and playbooks.
+license:
+  - Apache-2.0
+tags:
+  - collector
+  - netobserv
+  - monitoring
+  - observability
+  - networking
+
+dependencies:
+  community.general: "10.6.0,<11.0.0"
+  community.docker: ">=4.5.2,<5.0.0"
+  ansible.posix: ">=2.0.0,<3.0.0"
+
+homepage: https://www.elastiflow.com/
+documentation: https://www.elastiflow.com/docs
+repository: https://github.com/elastiflow/ansible-collection-netobserv
+issues: https://github.com/elastiflow/ansible-collection-netobserv/issues
+
+build_ignore:
+  - .ansible
+  - .ansible-lint
+  - .ansible-lint-ignore
+  - .git
+  - .github
+  - .gitignore
+  - .markdownlint-cli2.yaml
+  - .pre-commit-config.yaml
+  - .pytest_cache
+  - .releaserc.yaml
+  - .venv
+  - .vscode
+  - tests
+  - local
+  - examples
+  - trivy.yml
+  - uv.lock
+  - pyproject.toml

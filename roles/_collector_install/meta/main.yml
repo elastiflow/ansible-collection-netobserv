@@ -1,0 +1,13 @@
+galaxy_info:
+  author: ElastiFlow Engineering Team <engineering@elastiflow.com>
+  description: Meta role for Elastiflow packages installation
+  license: Apache-2.0
+  platforms:
+    - name: EL
+      versions:
+        - "8"
+        - "9"
+    - name: Ubuntu
+      versions:
+        - "22.04"
+        - "24.04"

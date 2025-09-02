@@ -1,0 +1,14 @@
+argument_specs:
+  main:
+    short_description: |
+      Meta role for Elastiflow packages installation
+    options:
+      collector_type:
+        type: str
+        description: |
+          Elastiflow package to install
+
+      version:
+        type: str
+        description: |
+          Elastiflow package version
