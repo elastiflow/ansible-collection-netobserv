@@ -39,7 +39,7 @@ Please see the `README.md` in the relevant example.
 
 ## Configuration
 
-- NetObserv Flow configuration options are documented in [roles/netobserv_flow/README.md](roles/netobserv_flow/README.md).  
+- NetObserv Flow configuration options are documented in [roles/netobserv_flow/README.md](https://github.com/elastiflow/ansible-collection-netobserv/blob/main/roles/netobserv_flow/README.md).  
 
 ## Documentation
 
