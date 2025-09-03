@@ -32,14 +32,14 @@ It enables automated deployment, configuration, and kernel tuning for NetObserv 
 
 Sample playbooks are provided in the [`examples`](examples) directory:
 
-- [examples/netobserv_flow_es_simple](examples/netobserv_flow_es_simple): Deploy NetObserv Flow with "simple" ElasticSearch
-- [examples/netobserv_flow_os_simple](examples/netobserv_flow_os_simple): Deploy NetObserv Flow with "simple" OpenSearch
+- [examples/netobserv_flow_es_simple](https://github.com/elastiflow/ansible-collection-netobserv/tree/main/examples/netobserv_flow_es_simple): Deploy NetObserv Flow with "simple" ElasticSearch <!-- markdownlint-disable MD013 -->
+- [examples/netobserv_flow_os_simple](https://github.com/elastiflow/ansible-collection-netobserv/tree/main/examples/netobserv_flow_os_simple): Deploy NetObserv Flow with "simple" OpenSearch <!-- markdownlint-disable MD013 -->
 
 Please see the `README.md` in the relevant example.
 
 ## Configuration
 
-- NetObserv Flow configuration options are documented in [roles/netobserv_flow/README.md](roles/netobserv_flow/README.md).  
+- NetObserv Flow configuration options are documented in [roles/netobserv_flow/README.md](https://github.com/elastiflow/ansible-collection-netobserv/blob/main/roles/netobserv_flow/README.md).  
 
 ## Documentation
 

@@ -106,6 +106,6 @@ jobs:
           make_latest: true
       - name: Ansible Galaxy publish
         run: |
-          ansible --version
+          echo 'Please see collection documentation in the [NetObserv collection GitHub repository](https://github.com/elastiflow/ansible-collection-netobserv/)' > README.md
           ansible-galaxy collection build
           ansible-galaxy collection publish --token=${{ secrets.ANSIBLE_GALAXY_API_TOKEN }} $(find ./ -type f -name '*.tar.gz' -maxdepth 1)
