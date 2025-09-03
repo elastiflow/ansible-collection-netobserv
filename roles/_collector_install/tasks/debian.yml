@@ -23,7 +23,7 @@
     repo: "deb [signed-by=/etc/apt/keyrings/cloud.google.gpg] https://apt.elastiflow.com elastiflow-apt main"
     filename: elastiflow
     state: present
-- name: Install dependencies
+- name: Install {{ collector_type ~ '=' ~ version }}
   ansible.builtin.apt:
     name: "{{ collector_type }}={{ version }}"
     state: present

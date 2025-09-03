@@ -22,7 +22,7 @@
     state: present
     key: https://elastiflow-releases.s3.us-east-2.amazonaws.com/elastiflow.pgp
     fingerprint: 6A2E 26EF DE24 AA7A 634A  442E D5C0 572E 5D21 2F6B
-- name: Add an Apt signing key, uses whichever key is at the URL
+- name: Add Elastiflow YUM repository
   ansible.builtin.copy:
     content: |
       [elastiflow-yum]
@@ -35,7 +35,7 @@
     owner: "root"
     group: "root"
     mode: "0644"
-- name: Install NetObserv Flow package
+- name: Install {{ collector_type ~ '=' ~ version }}
   ansible.builtin.dnf:
     name: "{{ collector_type }}-{{ version }}"
     state: present
