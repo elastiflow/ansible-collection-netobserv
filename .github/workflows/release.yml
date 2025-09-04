@@ -47,10 +47,13 @@ jobs:
           bump_version_yaml_path: galaxy.yml
           bump_version_yaml_key: '.version'
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Debug
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+      - name: Update roles readme
         run: |
-          echo DEBUG
-          echo '${{ toJSON(steps.prepare_release.outputs) }}'
+          find . -maxdepth 2 -type d -path './roles/**' -not -path '*/_*' | while read -r dir; do \
+            uv run aar-doc --output-mode=replace ${dir} markdown; \
+          done
       - name: Create Pull Request
         if: ${{ fromJson(steps.prepare_release.outputs.new_release_published) }}
         uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
