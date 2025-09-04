@@ -1,7 +1,7 @@
 import json
 
 import pytest
-from ansible.module_utils import basic
+from ansible.module_utils import basic, testing
 from ansible.module_utils.common.text.converters import to_bytes
 
 from plugins.modules.ensure_single_config_source import get_by_dot, run_module, valid
@@ -97,16 +97,15 @@ def test_valid(vals, path, want):
 def test_run_module(mocker, config_values, config_path, ansible_vars, want):
     mocked_fail = mocker.patch.object(basic.AnsibleModule, "fail_json")
     mocker.patch.object(basic.AnsibleModule, "exit_json")
-    set_module_args(
+    with testing.patch_module_args(
         {
             "config_values": config_values,
             "config_path": config_path,
             "vars": ansible_vars,
         },
-    )
-
-    run_module()
-    assert mocked_fail.call_count == want
+    ):
+        run_module()
+        assert mocked_fail.call_count == want
 
 
 @pytest.mark.parametrize(
@@ -137,13 +136,14 @@ def test_run_module(mocker, config_values, config_path, ansible_vars, want):
     ],
 )
 def test_run_module_exception(config_values, config_path, ansible_vars, want):
-    set_module_args(
-        {
-            "config_values": config_values,
-            "config_path": config_path,
-            "vars": ansible_vars,
-        },
-    )
-
-    with pytest.raises(want):
+    with (
+        testing.patch_module_args(
+            {
+                "config_values": config_values,
+                "config_path": config_path,
+                "vars": ansible_vars,
+            },
+        ),
+        pytest.raises(want),
+    ):
         run_module()
