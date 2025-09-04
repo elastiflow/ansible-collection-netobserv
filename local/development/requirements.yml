@@ -1,8 +1,6 @@
 collections:
+  - name: ansible.posix
   - name: community.general
   - name: community.docker
-  # - name: elastiflow.opensearch
-  #   source: https://github.com/elastiflow/ansible-collection-opensearch
-  #   version: a67ce2d
 roles:
   - name: geerlingguy.docker

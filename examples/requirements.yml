@@ -1,5 +1,6 @@
 # Ansible requirements to make ansible-lint GHA happy. List of roles and collections in the examples
 collections:
+  - name: ansible.posix
   - name: community.general
   - name: community.docker
   - name: elastiflow.netobserv
