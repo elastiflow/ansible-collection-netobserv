@@ -1,4 +1,7 @@
 #!/usr/bin/python
+from __future__ import absolute_import, division, print_function
+
+__metaclass__ = type
 
 DOCUMENTATION = r"""
 ---
@@ -73,6 +76,7 @@ EXAMPLES = r"""
       ipport_config_local_path: "/home/user/config.yml"
 """
 
+
 import typing  # noqa: E402 # Ansible rule conflicting with Ruff
 
 from ansible.module_utils.basic import AnsibleModule  # noqa: E402 # Ansible rule conflicting with Ruff
@@ -135,5 +139,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    main()
+    main()
     main()
     main()
