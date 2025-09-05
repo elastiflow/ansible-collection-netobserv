@@ -1,0 +1,1 @@
+plugins/modules/ensure_single_config_source.py validate-modules:missing-gplv3-license

@@ -31,13 +31,19 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ansible-core-version: [stable-2.15, stable-2.16, stable-2.17, stable-2.18]
-        target-python-version: ["3.9", "3.10", "3.11"]
+        ansible-core-version: [stable-2.16, stable-2.17, stable-2.18, stable-2.19]
+        target-python-version: ["3.10", "3.11", "3.12"]
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Run
-        uses: ansible-community/ansible-test-gh-action@v1.16.0
+      - name: Run sanity tests
+        uses: ansible-community/ansible-test-gh-action@v1.17.0
+        with:
+          ansible-core-version: ${{ matrix.ansible-core-version }}
+          target-python-version: ${{ matrix.target-python-version }}
+          testing-type: sanity
+      - name: Run unit tests
+        uses: ansible-community/ansible-test-gh-action@v1.17.0
         with:
           ansible-core-version: ${{ matrix.ansible-core-version }}
           target-python-version: ${{ matrix.target-python-version }}

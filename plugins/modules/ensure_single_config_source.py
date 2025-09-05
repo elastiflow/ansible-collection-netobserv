@@ -1,9 +1,7 @@
 #!/usr/bin/python
+from __future__ import absolute_import, division, print_function
 
-import sys
-import typing
-
-from ansible.module_utils.basic import AnsibleModule
+__metaclass__ = type
 
 DOCUMENTATION = r"""
 ---
@@ -16,19 +14,24 @@ version_added: "0.1.0"
 description:
   - This module acts as a validation helper to ensure that configuration is provided from a single, unambiguous source.
   - It enforces a mutual exclusion rule on parameters that define configuration, such as providing values directly versus providing a path to a file.
-  - Its primary use is to fail early in a playbook or role if a user has provided a conflicting or ambiguous configuration, which improves the role's robustness.
-  - The module succeeds if only one configuration source is actively defined and fails if multiple sources are used, preventing the playbook from continuing with an invalid state.
+  - Its primary use is to fail early in a playbook or role if a user has provided a conflicting or ambiguous configuration.
+  - The module succeeds if only one configuration source is defined and fails if multiple sources are used, causing to fail early.
 
 options:
   config_values:
-    description: A dictionary of configuration values provided directly.
-    type: dict
-  config_path:
-    description: The path to a local file containing configuration values.
+    description: A dict key that contains config values (separated by dot)
     type: str
+    required: true
+  config_path:
+    description: A dict key that contains local config path (separated by dot)
+    type: str
+    required: true
+  vars:
+    description: The Ansible vars dict to look the `config_values` and `config_path` keys.
+    type: dict
+    required: true
 
-author:
-    - ElastiFlow
+author: ElastiFlow Engineering Team <engineering@elastiflow.com> (@elastiflow)
 """
 
 EXAMPLES = r"""
@@ -72,6 +75,11 @@ EXAMPLES = r"""
       ipport_config_values: {}
       ipport_config_local_path: "/home/user/config.yml"
 """
+
+
+import typing  # noqa: E402 # Ansible rule conflicting with Ruff
+
+from ansible.module_utils.basic import AnsibleModule  # noqa: E402 # Ansible rule conflicting with Ruff
 
 
 def get_by_dot(d: typing.Dict, key: str) -> typing.Any:  # noqa: ANN401
@@ -131,4 +139,7 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    main()
+    main()
+    main()
     main()

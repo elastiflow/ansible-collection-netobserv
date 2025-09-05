@@ -23,7 +23,7 @@ It enables automated deployment, configuration, and kernel tuning for NetObserv 
 
 ## Requirements
 
-- Ansible 2.15+
+- Ansible 2.16+
 - Tested platforms: Ubuntu 24.04, EL 9.5 (Rocky, Alma, RHEL)
 - Minimum target host specs: 16GB RAM, 4 vCPUs
 - SSH access to target hosts
