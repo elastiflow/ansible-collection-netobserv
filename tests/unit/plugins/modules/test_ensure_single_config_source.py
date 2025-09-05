@@ -11,6 +11,7 @@ from ansible.module_utils.common.text.converters import to_bytes
 from plugins.modules.ensure_single_config_source import get_by_dot, run_module, valid
 
 # "testing" is present in Ansible 2.19+
+ansible_new = False
 try:
     from ansible.module_utils import testing
 
