@@ -1,6 +1,6 @@
 <!-- BEGIN_ANSIBLE_DOCS -->
 # Ansible Role: elastiflow.netobserv.opensearch_simple
-Version: 0.0.1
+Version: 0.1.2
 
 Ansible collection for ElastiFlow NetObserv roles and playbooks.
 
@@ -10,7 +10,7 @@ Ansible collection for ElastiFlow NetObserv roles and playbooks.
 | Platform | Versions |
 | -------- | -------- |
 | EL | 8, 9 |
-| Ubuntu | 22.04, 24.04 |
+| Ubuntu | jammy, noble |
 
 ## Role Arguments
 
