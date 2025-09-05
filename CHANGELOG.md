@@ -1,3 +1,10 @@
+## [0.1.2](https://github.com/elastiflow/ansible-collection-netobserv/compare/v0.1.1...v0.1.2) (2025-09-05)
+
+### Bug Fixes
+
+* Bump min ansible version to 2.16 ([#6](https://github.com/elastiflow/ansible-collection-netobserv/issues/6)) ([a6f5f89](https://github.com/elastiflow/ansible-collection-netobserv/commit/a6f5f894ceb5a12ff1903b3e46abc644c08f6dd3))
+
+
 ## [0.1.1](https://github.com/elastiflow/ansible-collection-netobserv/compare/v0.1.0...v0.1.1) (2025-09-03)
 
 ### Bug Fixes
