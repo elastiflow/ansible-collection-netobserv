@@ -1,3 +1,10 @@
+## [0.1.3](https://github.com/elastiflow/ansible-collection-netobserv/compare/v0.1.2...v0.1.3) (2025-09-08)
+
+### Bug Fixes
+
+* Use the released collector version ([#8](https://github.com/elastiflow/ansible-collection-netobserv/issues/8)) ([b939f69](https://github.com/elastiflow/ansible-collection-netobserv/commit/b939f695c6ff5df9804fec10470ac7ef55946b50))
+
+
 ## [0.1.2](https://github.com/elastiflow/ansible-collection-netobserv/compare/v0.1.1...v0.1.2) (2025-09-05)
 
 ### Bug Fixes
