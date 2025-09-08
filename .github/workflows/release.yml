@@ -17,9 +17,11 @@ jobs:
       is_release: ${{ steps.release_or_pr.outputs.is_release }}
     steps:
       - id: release_or_pr
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           cat > /tmp/commit_message <<- EOF
-          ${{ github.event.head_commit.message }}
+          ${COMMIT_MESSAGE}
           EOF
           cat /tmp/commit_message
           # https://regex101.com/r/1z85UX/1
@@ -51,7 +53,7 @@ jobs:
         uses: astral-sh/setup-uv@v6
       - name: Update roles readme
         run: |
-          find . -maxdepth 2 -type d -path './roles/**' -not -path '*/_*' | while read -r dir; do \
+          find . -maxdepth 2 -type d -path './roles/**' -not -path '*/_validate_vars' | while read -r dir; do \
             uv run aar-doc --output-mode=replace ${dir} markdown; \
           done
       - name: Create Pull Request
