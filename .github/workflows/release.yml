@@ -51,7 +51,7 @@ jobs:
         uses: astral-sh/setup-uv@v6
       - name: Update roles readme
         run: |
-          find . -maxdepth 2 -type d -path './roles/**' -not -path '*/_*' | while read -r dir; do \
+          find . -maxdepth 2 -type d -path './roles/**' -not -path '*/_validate_vars' | while read -r dir; do \
             uv run aar-doc --output-mode=replace ${dir} markdown; \
           done
       - name: Create Pull Request
