@@ -1,3 +1,10 @@
+## [0.1.4](https://github.com/elastiflow/ansible-collection-netobserv/compare/v0.1.3...v0.1.4) (2025-09-11)
+
+### Bug Fixes
+
+* Never cancel release workflow ([#10](https://github.com/elastiflow/ansible-collection-netobserv/issues/10)) ([0c83425](https://github.com/elastiflow/ansible-collection-netobserv/commit/0c8342504dcc0d24891bd799bdf4e0016e97a7fc))
+
+
 ## [0.1.3](https://github.com/elastiflow/ansible-collection-netobserv/compare/v0.1.2...v0.1.3) (2025-09-08)
 
 ### Bug Fixes

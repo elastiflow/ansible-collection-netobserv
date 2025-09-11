@@ -1,6 +1,6 @@
 <!-- BEGIN_ANSIBLE_DOCS -->
 # Ansible Role: elastiflow.netobserv._collector_install
-Version: 0.1.3
+Version: 0.1.4
 
 Meta role for Elastiflow packages installation
 

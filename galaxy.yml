@@ -1,6 +1,6 @@
 namespace: elastiflow
 name: netobserv
-version: 0.1.3
+version: 0.1.4
 readme: README.md
 authors:
   - ElastiFlow Engineering Team <engineering@elastiflow.com>
