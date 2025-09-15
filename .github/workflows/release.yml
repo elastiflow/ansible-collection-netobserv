@@ -43,7 +43,6 @@ jobs:
         id: prepare_release
         uses: elastiflow/gha-reusable/actions/prepare-release@v0
         with:
-          branch: "${{ github.ref_name }}"
           changelog_update: true
           bump_version_yaml: true
           bump_version_yaml_path: galaxy.yml
@@ -85,11 +84,7 @@ jobs:
         id: prepare_release
         uses: elastiflow/gha-reusable/actions/prepare-release@v0
         with:
-          branch: "${{ github.ref_name }}"
-          changelog_update: true
-          bump_version_yaml: true
-          bump_version_yaml_path: galaxy.yml
-          bump_version_yaml_key: '.version'
+          add_git_notes: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Create and push semver tag
         if: ${{ fromJson(steps.prepare_release.outputs.new_release_published) }}
