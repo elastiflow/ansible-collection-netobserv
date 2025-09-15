@@ -1,3 +1,10 @@
+## [0.1.5](https://github.com/elastiflow/ansible-collection-netobserv/compare/v0.1.4...v0.1.5) (2025-09-15)
+
+### Bug Fixes
+
+* Drop "branch" from releases. ([#12](https://github.com/elastiflow/ansible-collection-netobserv/issues/12)) ([e8c3ac4](https://github.com/elastiflow/ansible-collection-netobserv/commit/e8c3ac4b587ffe4468852bdd3e3ee82b74d5e534))
+
+
 ## [0.1.4](https://github.com/elastiflow/ansible-collection-netobserv/compare/v0.1.3...v0.1.4) (2025-09-11)
 
 ### Bug Fixes
