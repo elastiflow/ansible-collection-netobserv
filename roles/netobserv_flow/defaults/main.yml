@@ -3,7 +3,7 @@
 # Whether to install NetObserv Flow.
 netobserv_flow_install: true
 # NetObserv Flow version to install.
-netobserv_flow_version: '1:7.14.0-1'
+netobserv_flow_version: '1:7.15.0-1'
 # Directory for NetObserv Flow configuration files.
 netobserv_flow_config_dir: /etc/elastiflow
 # Validate variables before applying configuration.
