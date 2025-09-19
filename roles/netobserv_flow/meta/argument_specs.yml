@@ -14,7 +14,7 @@ argument_specs:
 
       netobserv_flow_version:
         type: str
-        default: "1:7.14.0-1"
+        default: "1:7.15.0-1"
         description: |
           NetObserv Flow version to install.
 
