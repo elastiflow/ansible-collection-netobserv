@@ -1,3 +1,10 @@
+## [0.2.0](https://github.com/elastiflow/ansible-collection-netobserv/compare/v0.1.5...v0.2.0) (2025-09-19)
+
+### Features
+
+* bump app version to 7.15.0 ([#14](https://github.com/elastiflow/ansible-collection-netobserv/issues/14)) ([4c5d797](https://github.com/elastiflow/ansible-collection-netobserv/commit/4c5d797d7b91def47e2a9a2d9a75f310232d38e1))
+
+
 ## [0.1.5](https://github.com/elastiflow/ansible-collection-netobserv/compare/v0.1.4...v0.1.5) (2025-09-15)
 
 ### Bug Fixes

@@ -1,6 +1,6 @@
 <!-- BEGIN_ANSIBLE_DOCS -->
 # Ansible Role: elastiflow.netobserv.elasticsearch_simple
-Version: 0.1.5
+Version: 0.2.0
 
 Ansible collection for ElastiFlow NetObserv roles and playbooks.
 
