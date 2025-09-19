@@ -1,6 +1,6 @@
 <!-- BEGIN_ANSIBLE_DOCS -->
 # Ansible Role: elastiflow.netobserv.netobserv_flow
-Version: 0.1.5
+Version: 0.2.0
 
 NetObserv Flow role for ElastiFlow - installs and configures the flow collector.
 
