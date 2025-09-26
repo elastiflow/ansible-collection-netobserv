@@ -3,7 +3,7 @@
 # Whether to install NetObserv Flow.
 netobserv_flow_install: true
 # NetObserv Flow version to install.
-netobserv_flow_version: '1:7.15.0-1'
+netobserv_flow_version: '1:7.16.0-1'
 # Directory for NetObserv Flow configuration files.
 netobserv_flow_config_dir: /etc/elastiflow
 # Validate variables before applying configuration.
@@ -302,6 +302,8 @@ __netobserv_flow_config_processor_enrich_ipaddr_metadata:
   userdef_config_local_path: null
   # Refresh rate in minutes.
   refresh_rate: 15
+  # Enable API for managing user-defined IP metadata.
+  api_enable: false
 # See: https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_netif_options
 netobserv_flow_config_processor_enrich_netif_flow_options_enable: true
 # SNMP-based network interface enrichment configuration.
