@@ -204,6 +204,7 @@ Please see full documentation for:
 | userdef_config_values | Inline user-defined IP metadata config values. Example: ```yaml # Specify whether the IP/CIDR/Range is considered to be "internal". 192.0.2.0/24:   internal: true  # Additional options are name, vlan, tags and metadata. 192.0.2.192/26:   name: atlanta_guest_wifi   vlan: 1001   tags:     - wifi     - dhcp   metadata:     dhcp.pool.name: atlanta_guest_wifi     .site.id: atlanta ``` | dict | no |  |
 | userdef_config_local_path | Local path for user-defined IP metadata config. | str | no | `None` |
 | refresh_rate | Refresh rate in minutes. | int | no | `15` |
+| api_enable | Enable API for managing user-defined IP metadata. | bool | no | `False` |
 
 #### Options for main > netobserv_flow_config_processor_enrich_netif_snmp
 

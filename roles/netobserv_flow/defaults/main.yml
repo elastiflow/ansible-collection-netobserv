@@ -302,6 +302,8 @@ __netobserv_flow_config_processor_enrich_ipaddr_metadata:
   userdef_config_local_path: null
   # Refresh rate in minutes.
   refresh_rate: 15
+  # Enable API for managing user-defined IP metadata.
+  api_enable: false
 # See: https://www.elastiflow.com/docs/config_ref/flowcoll/enrich_netif_options
 netobserv_flow_config_processor_enrich_netif_flow_options_enable: true
 # SNMP-based network interface enrichment configuration.
@@ -390,7 +392,7 @@ __netobserv_flow_config_output_stdout:
   # Output format.
   format: json_pretty
   # Allowed record types for stdout output.
-  allowed_record_types:
+  allowed_record_types: 
     as_path_hop,flow_option,flow,ifa_hop,telemetry,metric,log
 # ElasticSearch output configuration.
 # See: https://www.elastiflow.com/docs/config_ref/common/output_elasticsearch
@@ -543,7 +545,7 @@ __netobserv_flow_config_output_opensearch:
   # Fields to drop from output.
   drop_fields: ''
   # Allowed record types for OpenSearch output.
-  allowed_record_types:
+  allowed_record_types: 
     as_path_hop,flow_option,flow,ifa_hop,telemetry,metric,log
 # Netflow/IPFIX/sFlow (UDP) input configuration.
 # See: https://www.elastiflow.com/docs/config_ref/flowcoll/input_udp
@@ -566,8 +568,8 @@ __netobserv_flow_config_input_aws_vpc_flow_log_firehose:
   # AWS access key for Firehose.
   http_access_key: ''
   # Log format for AWS Firehose.
-  http_log_format: ${version} ${account-id} ${interface-id} ${srcaddr}
-    ${dstaddr} ${srcport} ${dstport} ${protocol} ${packets} ${bytes} ${start}
+  http_log_format: ${version} ${account-id} ${interface-id} ${srcaddr} 
+    ${dstaddr} ${srcport} ${dstport} ${protocol} ${packets} ${bytes} ${start} 
     ${end} ${action} ${log-status}
 # AWS VPC Flow Log S3 input configuration.
 # See: https://www.elastiflow.com/docs/config_ref/flowcoll/input_aws_s3
@@ -593,8 +595,8 @@ __netobserv_flow_config_input_aws_vpc_flow_log_s3:
   # Enable Firehose S3 input.
   firehose_s3_enable: false
   # Log format for Firehose S3.
-  firehose_s3_log_format: ${version} ${account-id} ${interface-id} ${srcaddr}
-    ${dstaddr} ${srcport} ${dstport} ${protocol} ${packets} ${bytes} ${start}
+  firehose_s3_log_format: ${version} ${account-id} ${interface-id} ${srcaddr} 
+    ${dstaddr} ${srcport} ${dstport} ${protocol} ${packets} ${bytes} ${start} 
     ${end} ${action} ${log-status}
   # AWS credentials for S3 input.
   aws:

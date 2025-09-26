@@ -581,6 +581,10 @@ argument_specs:
             type: int
             default: 15
             description: Refresh rate in minutes.
+          api_enable:
+            type: bool
+            default: false
+            description: Enable API for managing user-defined IP metadata.
 
       netobserv_flow_config_processor_enrich_netif_flow_options_enable:
         type: bool
