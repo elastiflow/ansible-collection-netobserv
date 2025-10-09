@@ -1,3 +1,11 @@
+## [v0.2.1] - 2025-10-09
+
+### Bug Fixes
+
+- **ci:** "fetch-depth" should be 0 for releases (#17)
+
+[v0.2.0..v0.2.1](https://github.com/elastiflow/ansible-collection-netobserv/compare/v0.2.0...v0.2.1)
+
 ## [0.2.0](https://github.com/elastiflow/ansible-collection-netobserv/compare/v0.1.5...v0.2.0) (2025-09-26)
 
 ### Features
