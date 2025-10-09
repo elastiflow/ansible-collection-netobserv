@@ -39,6 +39,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - name: Prepare Release
         id: prepare_release
         uses: elastiflow/gha-reusable/actions/prepare-release@v0
@@ -47,7 +49,6 @@ jobs:
           bump_version_yaml: true
           bump_version_yaml_path: galaxy.yml
           bump_version_yaml_key: '.version'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install uv
         uses: astral-sh/setup-uv@v6
       - name: Update roles readme
@@ -80,12 +81,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - name: Prepare Release
         id: prepare_release
         uses: elastiflow/gha-reusable/actions/prepare-release@v0
         with:
           add_git_notes: true
-          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Create and push semver tag
         if: ${{ fromJson(steps.prepare_release.outputs.new_release_published) }}
         uses: anothrNick/github-tag-action@e528bc2b9628971ce0e6f823f3052d1dcd9d512c
