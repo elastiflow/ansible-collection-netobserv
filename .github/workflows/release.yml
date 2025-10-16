@@ -24,8 +24,8 @@ jobs:
           ${COMMIT_MESSAGE}
           EOF
           cat /tmp/commit_message
-          # https://regex101.com/r/1z85UX/1
-          echo $(grep -Pq '^\[release v(?:[0-9]{1,3}\.?){3}(?:-rc(?:\.[0-9]{1,3})?)?\] \(#[0-9]{1,5}\)$' /tmp/commit_message && echo true || echo false) > /tmp/is_release
+          # https://regex101.com/r/1z85UX/3
+          echo $(grep -Pq '^\[release .+\] \(#[0-9]{1,5}\)$' /tmp/commit_message && echo true || echo false) > /tmp/is_release
           echo "is_release=$(cat /tmp/is_release)" >> $GITHUB_OUTPUT
 
   release_pr_create:
@@ -86,8 +86,6 @@ jobs:
       - name: Prepare Release
         id: prepare_release
         uses: elastiflow/gha-reusable/actions/prepare-release@v0
-        with:
-          add_git_notes: true
       - name: Create and push semver tag
         if: ${{ fromJson(steps.prepare_release.outputs.new_release_published) }}
         uses: anothrNick/github-tag-action@e528bc2b9628971ce0e6f823f3052d1dcd9d512c
