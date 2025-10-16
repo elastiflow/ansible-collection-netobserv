@@ -1,3 +1,13 @@
+## [v0.3.0] - 2025-10-16
+
+### Features
+
+- Update NetObserv to 7.18.0 (#19)
+
+[v0.2.1..v0.3.0](https://github.com/elastiflow/ansible-collection-netobserv/compare/v0.2.1...v0.3.0)
+
+
+
 ## [v0.2.1] - 2025-10-09
 
 ### Bug Fixes
