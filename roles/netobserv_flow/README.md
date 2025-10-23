@@ -64,7 +64,7 @@ Please see full documentation for:
 |---|---|---|---|---|
 | accepted | Accept the ElastiFlow license agreement. | bool | no | `True` |
 | account_id | ElastiFlow account ID. | str | no | `None` |
-| license_key | ElastiFlow license key. | str | no | `None` |
+| key | ElastiFlow license key. | str | no | `None` |
 
 #### Options for main > netobserv_flow_config_logger
 

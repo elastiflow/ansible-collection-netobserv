@@ -4,7 +4,7 @@ EF_FLOW_DATA_PATH: {{ netobserv_flow_config_data_path | to_json }}
 #https://www.elastiflow.com/docs/config_ref/common/license/
 EF_LICENSE_ACCEPTED: {{ netobserv_flow_config_license.accepted | to_json }}
 {% if netobserv_flow_config_license.account_id != None %}EF_ACCOUNT_ID: {{ netobserv_flow_config_license.account_id | to_json ~ "\n" }}{% endif %}
-{% if netobserv_flow_config_license.license_key != None %}EF_LICENSE_KEY: {{ netobserv_flow_config_license.license_key | to_json ~ "\n" }}{% endif %}
+{% if netobserv_flow_config_license.key != None %}EF_LICENSE_KEY: {{ netobserv_flow_config_license.key | to_json ~ "\n" }}{% endif %}
 
 # https://www.elastiflow.com/docs/config_ref/common/logging
 EF_LOGGER_LEVEL: {{ netobserv_flow_config_logger.level | to_json }}

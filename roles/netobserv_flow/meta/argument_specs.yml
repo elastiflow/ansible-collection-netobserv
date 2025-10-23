@@ -57,7 +57,7 @@ argument_specs:
             type: str
             default: null
             description: ElastiFlow account ID.
-          license_key:
+          key:
             type: str
             default: null
             description: ElastiFlow license key.
