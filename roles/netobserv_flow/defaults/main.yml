@@ -20,7 +20,7 @@ __netobserv_flow_config_license:
   # ElastiFlow account ID.
   account_id: null
   # ElastiFlow license key.
-  license_key: null
+  key: null
 # Logging configuration for NetObserv Flow collector.
 # See: https://www.elastiflow.com/docs/config_ref/common/logging
 __netobserv_flow_config_logger:

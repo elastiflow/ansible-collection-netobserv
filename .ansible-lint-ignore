@@ -7,3 +7,4 @@ roles/opensearch_simple/defaults/main.yml var-naming[no-role-prefix] # Intention
 # "meta" specs
 roles/elasticsearch_simple/meta/argument_specs.yml yaml[line-length] # Meta is mainly used for the docs generation
 roles/opensearch_simple/meta/argument_specs.yml yaml[line-length] # Meta is mainly used for the docs generation
+roles/netobserv_flow/meta/argument_specs.yml yaml[line-length] # Docs (generated from short_description) may have lines
