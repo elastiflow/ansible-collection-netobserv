@@ -1,10 +1,20 @@
 argument_specs:
   main:
     short_description: |
-      Default variables for the NetObserv Flow role, configuring flow collection, enrichment, and output for ElastiFlow.
+      NetObserv Flow role, configuring flow collection, enrichment, and output for ElastiFlow.
       Please see full documentation for:
       * [Common Options](https://www.elastiflow.com/docs/category/configuration-reference/category/common-options)
       * [NetObserv Flow exclusive options](https://www.elastiflow.com/docs/category/configuration-reference/category/net-observ-flow)
+
+      #### License
+
+      If you have a license key, please add it to the playbook vars (consider using [Ansible Vault](https://docs.ansible.com/ansible/latest/vault_guide/index.html) to encrypt the license key)
+      ```yaml
+      netobserv_flow_config_license:
+          license_key: "${LICENSE_KEY}"
+          account_id: "${ACCOUNT_ID}"
+      ```
+
     options:
       netobserv_flow_install:
         type: bool

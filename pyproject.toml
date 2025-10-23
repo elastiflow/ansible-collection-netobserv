@@ -8,7 +8,7 @@ dependencies = []
 dev = [
     "aar-doc",
     "ansible-core>=2.19",
-    "ansible-lint>=25.8.2",
+    "ansible-lint>=25.9.2",
     "pytest>=8.3.5",
     "pytest-cov>=6.0.0",
     "pytest-forked>=1.6.0",
