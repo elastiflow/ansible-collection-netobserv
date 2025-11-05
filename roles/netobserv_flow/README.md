@@ -35,7 +35,7 @@ netobserv_flow_config_license:
 |Option|Description|Type|Required|Default|
 |---|---|---|---|---|
 | netobserv_flow_install | Whether to install NetObserv Flow. | bool | no | `True` |
-| netobserv_flow_version | NetObserv Flow version to install. | str | no | `1:7.18.0-1` |
+| netobserv_flow_version | NetObserv Flow version to install. | str | no | `1:7.19.1-1` |
 | netobserv_flow_config_dir | Directory for NetObserv Flow configuration files. | str | no | `/etc/elastiflow` |
 | netobserv_flow_validate_vars | Validate variables before applying configuration. | bool | no | `True` |
 | netobserv_flow_config_file | Main configuration file for NetObserv Flow. | str | no | `{{ netobserv_flow_config_dir }}/flowcoll.yml` |
