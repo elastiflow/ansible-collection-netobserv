@@ -1,3 +1,13 @@
+## [v0.4.1] - 2025-11-21
+
+### Bug Fixes
+
+- Bump NetObserv Flow to 7.19.3 (#27)
+
+[v0.4.0..v0.4.1](https://github.com/elastiflow/ansible-collection-netobserv/compare/v0.4.0...v0.4.1)
+
+
+
 ## [v0.4.0] - 2025-11-05
 
 ### Features
