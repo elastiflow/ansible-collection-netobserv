@@ -31,6 +31,48 @@ netobserv_flow_config_license:
     account_id: "${ACCOUNT_ID}"
 ```
 
+#### Sample flows from the host
+
+You may ingest flows from the server the netobserv-flow is running on by setting-up a [softflowd](https://github.com/irino/softflowd) (available in Debian/Ubuntu repos).
+You may install it manually or use following task (full examples may be found in the `examples` dir)
+```yaml
+tasks:
+  - name: Install softflowd
+    notify: Restart softflowd
+    when: ansible_os_family | lower == "debian"
+    block:
+      - name: Install softflowd
+        ansible.builtin.package:
+          name: softflowd
+      - name: Configure softflowd
+        # -n localhost:port should be identical to `netobserv_flow_config_input_flow.server_udp_port` netobserv-flow var, default is 9995
+        # More details on the config here: https://www.elastiflow.com/docs/guides/device_flow_openwrt_softflowd/
+        ansible.builtin.copy:
+          dest: /etc/softflowd/default.conf
+          backup: true
+          owner: root
+          group: root
+          mode: "0644"
+          content: |
+            interface='any'
+            # -n localhost:port should be identical to `netobserv_flow_config_input_flow.server_udp_port` netobserv-flow var, default is 9995
+            # Run `softflowd -h` for command-line options details.
+            # More details on the config here: https://www.elastiflow.com/docs/guides/device_flow_openwrt_softflowd/
+            options='-n localhost:9995
+              -v 9
+              -L 255
+              -T ether
+              -6
+              -s 1
+              -t tcp.fin=10
+              -t expint=10
+              -t icmp=20
+              -t tcp=60
+              -t maxlife=60
+              -t general=60
+              -t udp=60'
+```
+
 
 |Option|Description|Type|Required|Default|
 |---|---|---|---|---|
