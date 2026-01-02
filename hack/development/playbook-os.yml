@@ -16,7 +16,6 @@
       vars:
         netobserv_flow_config_output_opensearch:
           enable: true
-          index_template_replicas: 0
           password: "Elast1flow!"
           tls:
             enable: true
@@ -26,3 +25,4 @@
 
         netobserv_flow_config_values:
           EF_LICENSE_ACCEPTED: true
+          EF_OUTPUT_OPENSEARCH_INDEX_TEMPLATE_REPLICAS: 0
