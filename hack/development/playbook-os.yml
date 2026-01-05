@@ -3,20 +3,58 @@
   hosts: all
   any_errors_fatal: true
   become: true
+  handlers:
+    - name: Restart softflowd
+      ansible.builtin.systemd:
+        name: softflowd
+        state: restarted
+        daemon_reload: true
+  tasks:
+    - name: Install softflowd
+      notify: Restart softflowd
+      when: ansible_os_family | lower == "debian"
+      block:
+        - name: Install softflowd
+          ansible.builtin.package:
+            name: softflowd
+        - name: Configure softflowd
+          # -n localhost:port should be identical to `netobserv_flow_config_input_flow.server_udp_port` netobserv-flow var, default is 9995
+          # More details on the config here: https://docs.elastiflow.com/additional-resources-reference-articles/guides/configuring-flow-logs-on-devices/device_flow_openwrt_softflowd
+          ansible.builtin.copy:
+            dest: /etc/softflowd/default.conf
+            backup: true
+            owner: root
+            group: root
+            mode: "0644"
+            content: |
+              interface='any'
+              # -n localhost:port should be identical to `netobserv_flow_config_input_flow.server_udp_port` netobserv-flow var, default is 9995
+              # Run `softflowd -h` for command-line options details.
+              # More details on the config here: https://docs.elastiflow.com/additional-resources-reference-articles/guides/configuring-flow-logs-on-devices/device_flow_openwrt_softflowd
+              options='-n localhost:9995
+                -v 9
+                -L 255
+                -T ether
+                -6
+                -s 1
+                -t tcp.fin=10
+                -t expint=10
+                -t icmp=20
+                -t tcp=60
+                -t maxlife=60
+                -t general=60
+                -t udp=60'
   roles:
     - role: geerlingguy.docker
-      tags: docker
     - role: elastiflow.netobserv.opensearch_simple # noqa: syntax-check[specific] false-positive
-      tags: storage
       vars:
+        opensearch_jvm_heap_size: "8g"
         opensearch_mem_limit: "9g"
         opensearch_initial_password: "Elast1flow!"
     - role: elastiflow.netobserv.netobserv_flow # noqa: syntax-check[specific] false-positive
-      tags: flow
       vars:
-        netobserv_flow_config_output_opensearch:
+        netobserv_flow_output_opensearch:
           enable: true
-          index_template_replicas: 0
           password: "Elast1flow!"
           tls:
             enable: true
@@ -26,3 +64,4 @@
 
         netobserv_flow_config_values:
           EF_LICENSE_ACCEPTED: true
+          EF_OUTPUT_OPENSEARCH_INDEX_TEMPLATE_REPLICAS: 0

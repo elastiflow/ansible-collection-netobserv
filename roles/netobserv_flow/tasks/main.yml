@@ -21,16 +21,6 @@
       {{ lookup('ansible.builtin.vars', item | regex_replace('^netobserv_flow', '__netobserv_flow'))
       | combine(lookup('ansible.builtin.vars', item, default={}), recursive=true) }}
   loop: "{{ _netobserv_flow_vars_with_defaults }}"
-- name: Validate NetObserv Flow config options
-  ansible.builtin.include_role:
-    name: elastiflow.netobserv._validate_vars
-    tasks_from: netobserv
-  vars:
-    netobserv_common_config_api: "{{ netobserv_flow_config_api }}"
-    netobserv_common_config_output_elasticsearch: "{{ netobserv_flow_config_output_elasticsearch }}"
-    netobserv_common_config_output_opensearch: "{{ netobserv_flow_config_output_opensearch }}"
-    validate_netobserv_flow: true
-  when: netobserv_flow_validate_vars
 - name: Create NetObserv Flow logging dir
   ansible.builtin.file:
     state: directory
@@ -39,18 +29,16 @@
     owner: elastiflow
     recurse: true
   when: netobserv_flow_config_logger.file_log_enable | default(false)
-# https://www.elastiflow.com/docs/flowcoll/requirements/#recommended-kernel-tuning
+# https://docs.elastiflow.com/flowcoll/installation/requirements#recommended-kernel-tuning
 - name: Tune Kernel parameters
   when: netobserv_flow_kernel_parameters.tune_enabled
   block:
-    # https://www.elastiflow.com/docs/flowcoll/config_gen/#udp-input
+    # https://docs.elastiflow.com/flowcoll/configuration/inputs/input_udp
     - name: Tune maximum receive socket buffer size
       ansible.posix.sysctl:
         name: net.core.rmem_max
-        value: "{{ netobserv_flow_kernel_parameters['net.core.rmem_max'] or netobserv_flow_config_input_flow.server_udp_read_buffer_max_size }}"
+        value: "{{ netobserv_flow_kernel_parameters['net.core.rmem_max'] }}"
         sysctl_set: true
-      # Change only when var is not null or if server_udp_read_buffer_max_size higher the Ubuntu22.04/Ubuntu24.04/Rocky9 default
-      when: netobserv_flow_kernel_parameters['net.core.rmem_max'] or netobserv_flow_config_input_flow.server_udp_read_buffer_max_size > 212992
     - name: Tune interface's maximum receive queue
       ansible.posix.sysctl:
         name: net.core.netdev_max_backlog
@@ -82,7 +70,7 @@
   block:
     - name: Provision OpenSearch Dashboards
       ansible.builtin.include_tasks: "opensearch_dashboards.yml"
-      when: netobserv_flow_dashboards.opensearch.enable
+      when: netobserv_flow_output_opensearch.dashboards.enable
     - name: Provision ElasticSearch Dashboards
       ansible.builtin.include_tasks: "elasticsearch_dashboards.yml"
-      when: netobserv_flow_dashboards.elasticsearch.enable
+      when: netobserv_flow_output_elasticsearch.dashboards.enable
