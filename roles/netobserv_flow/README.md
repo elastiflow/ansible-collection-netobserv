@@ -105,7 +105,7 @@ tasks:
 
 ### v0.4.1 -> v0.5.x
 
-Refer to the Pull Request for the full list of changes.
+Refer to the [Pull Request]() for the full list of changes.
 
 - License needs to be explicitly accepted via `netobserv_flow_config_values` (`netobserv_flow_license.accepted`) is removed
   ```yaml
@@ -114,6 +114,11 @@ Refer to the Pull Request for the full list of changes.
   ```
 - Top-level `netobserv_flow_dashboards` var is removed, OpenSearch and ElasticSearch import dashboard options are now in the `netobserv_flow_output_elasticsearch.dashboards`/`netobserv_flow_output_opensearch.dashboards`
 - Update `netobserv_flow_output_elasticsearch`/`netobserv_flow_output_opensearch` variables (refer the role's readme for the details)
+- Fill all values that are not present in the "complex" Ansible vars to the `netobserv_flow_config_values` dict.
+
+Please see the example playbooks changes for reference:
+- [Example ElasticSearch playbook]()
+- [Example OpensearchSearch playbook]()
 
 The safest way to upgrade is:
 1. Backup `/etc/elastiflow` directory
@@ -122,7 +127,7 @@ The safest way to upgrade is:
 |Option|Description|Type|Required|Default|
 |---|---|---|---|---|
 | netobserv_flow_install | Whether to install NetObserv Flow. | bool | no | `True` |
-| netobserv_flow_version | NetObserv Flow version to install. | str | no | `1:7.19.3-1` |
+| netobserv_flow_version | NetObserv Flow version to install. | str | no | `1:7.20.0-1` |
 | netobserv_flow_config_dir | Directory for NetObserv Flow configuration files. | str | no | `/etc/elastiflow` |
 | netobserv_flow_config_file | Main configuration file for NetObserv Flow. | str | no | `{{ netobserv_flow_config_dir }}/flowcoll.yml` |
 | netobserv_flow_license | License configuration for NetObserv Flow collector. See: https://docs.elastiflow.com/flowcoll/configuration/config_gen/license ***defaults_prefix:"__"*** | dict of `netobserv_flow_license` [options](#options-for-main--netobserv_flow_license) | no |  |

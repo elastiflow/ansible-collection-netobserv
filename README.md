@@ -13,6 +13,8 @@
 This repository provides an [Ansible](https://www.ansible.com/) collection for installing and configuring [ElastiFlow NetObserv Collectors](https://docs.elastiflow.com/flowcoll).
 It enables automated deployment, configuration, and kernel tuning for NetObserv Collectors on supported Linux platforms.
 
+**`v0.x.x` versions are intended for initial role development, and breaking changes may occur with *minor* version updates.**
+
 ## Features
 
 - Automated installation of NetObserv Collectors
