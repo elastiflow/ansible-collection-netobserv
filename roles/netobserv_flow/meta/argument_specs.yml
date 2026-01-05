@@ -84,6 +84,24 @@ argument_specs:
                     -t udp=60'
       ```
 
+      ## Upgrade notes
+
+      ### v0.4.1 -> v0.5.x
+
+      Refer to the Pull Request for the full list of changes.
+
+      - License needs to be explicitly accepted via `netobserv_flow_config_values` (`netobserv_flow_license.accepted`) is removed
+        ```yaml
+        netobserv_flow_config_values:
+          EF_LICENSE_ACCEPTED: true
+        ```
+      - Top-level `netobserv_flow_dashboards` var is removed, OpenSearch and ElasticSearch import dashboard options are now in the `netobserv_flow_output_elasticsearch.dashboards`/`netobserv_flow_output_opensearch.dashboards`
+      - Update `netobserv_flow_output_elasticsearch`/`netobserv_flow_output_opensearch` variables (refer the role's readme for the details)
+
+      The safest way to upgrade is:
+      1. Backup `/etc/elastiflow` directory
+      2. Copy `/etc/elastiflow/flowcoll.yml` values under the the `netobserv_flow_config_values` Ansible variable
+
     options:
       netobserv_flow_install:
         type: bool
@@ -350,196 +368,3 @@ argument_specs:
             type: str
             default: "2097152 4194304 8388608"
             description: Memory usage limits for UDP.
-
-# netobserv_flow_config_processor_enrich_app
-#           ipport_path:
-#             type: str
-#             default: "/etc/elastiflow/app/ipport.yml"
-#             description: Path to application IP/port config.
-#           ipport_config_values:
-#             type: dict
-#             default: {}
-#             description: |
-#               Inline application IP/port config values. Example:
-#               ```yaml
-#               192.168.1.0/24:
-#                 8090:
-#                   name: "Synergy-cidr-port"
-#                   category: "category-cidr-port"
-#                   subcategory: "subcategory-cidr-port"
-#                   metadata:
-#                     ".location": "austin-cidr-port"
-#                     "business.unit": "finance-cidr-port"
-#                     "dev.unit": "dev-cidr-port"
-#                     "app.count": 27
-#               ```
-#           ipport_config_local_path:
-#             type: str
-#             default: null
-#             description: Local path for application IP/port config.
-
-
-      # netobserv_flow_config_processor_enrich_ipaddr_dns:
-      #     userdef_path:
-      #       type: str
-      #       default: null
-      #       description: Path to user-defined hostname config.
-      #     userdef_config_values:
-      #       type: dict
-      #       default: {}
-      #       description: |
-      #         Inline user-defined hostname config values. Example:
-      #         ```yaml
-      #         192.0.2.1: "host1"
-      #         192.0.2.2: "host2"
-      #         ```
-      #     userdef_config_local_path:
-      #       type: str
-      #       default: null
-      #       description: Local path for user-defined hostname config.
-
-# netobserv_flow_config_processor_enrich_ipaddr_dns
-#           inclexcl_path:
-#             type: str
-#             default: ""
-#             description: Path to include/exclude config.
-#           inclexcl_config_values:
-#             type: dict
-#             default: {}
-#             description: |
-#               Inline include/exclude config values. Example:
-#               ```yaml
-#               include:
-#                 asn:
-#                   - 14168
-#                 cidr:
-#                   - 10.0.0.0/8
-#                   - 192.168.0.0/16
-#               exclude:
-#                 #asn:
-#                 #  -
-#                 cidr:
-#                   - 192.168.100.0/24
-#               ```
-#           inclexcl_config_local_path:
-#             type: str
-#             default: null
-#             description: Local path for include/exclude config.
-
-
-# netobserv_flow_config_processor_enrich_ipaddr_maxmind
-#           geoip_inclexcl_path:
-#             type: str
-#             default: ""
-#             description: Path to GeoIP include/exclude config.
-#           geoip_inclexcl_config_values:
-#             type: dict
-#             default: {}
-#             description: |
-#               Inline GeoIP include/exclude config values. Example:
-#               ```yaml
-#               include:
-#                 asn:
-#                   - 14168
-#                 cidr:
-#                   - 10.0.0.0/8
-#                   - 192.168.0.0/16
-#               exclude:
-#                 #asn:
-#                 #  -
-#                 cidr:
-#                   - 192.168.100.0/24
-#               ```
-#           geoip_inclexcl_config_local_path:
-#             type: str
-#             default: null
-#             description: Local path for GeoIP include/exclude config.
-
-# netobserv_flow_config_processor_enrich_ipaddr_metadata
-#           userdef_path:
-#             type: str
-#             default: null
-#             description: Path to user-defined IP metadata config.
-#           userdef_config_values:
-#             type: dict
-#             default: {}
-#             description: |
-#               Inline user-defined IP metadata config values. Example:
-#               ```yaml
-#               # Specify whether the IP/CIDR/Range is considered to be "internal".
-#               192.0.2.0/24:
-#                 internal: true
-
-#               # Additional options are name, vlan, tags and metadata.
-#               192.0.2.192/26:
-#                 name: atlanta_guest_wifi
-#                 vlan: 1001
-#                 tags:
-#                   - wifi
-#                   - dhcp
-#                 metadata:
-#                   dhcp.pool.name: atlanta_guest_wifi
-#                   .site.id: atlanta
-#               ```
-#           userdef_config_local_path:
-#             type: str
-#             default: null
-#             description: Local path for user-defined IP metadata config.
-
-# netobserv_flow_config_processor_enrich_netif_metadata
-#           userdef_path:
-#             type: str
-#             default: null
-#             description: Path to user-defined netif metadata config.
-#           userdef_config_values:
-#             type: dict
-#             default: {}
-#             description: |
-#               Inline user-defined netif metadata config values. Example:
-#               ```yaml
-#               10.0.0.1:
-#                 1:
-#                   ifName: lo
-#                   ifDescr: lo
-#                   ifAlias: lo
-#                   ifType: 24
-#                   ifSpeed: 10000000
-#                   tags:
-#                     - router_mgmt
-#                   metadata:
-#                     sec.zone.name: network
-#                 3:
-#                   internal: false
-#                   ifName: eth0
-#                   ifDescr: eth0
-#                   ifAlias: internet
-#                   ifType: 6
-#                   ifSpeed: 1000000000
-#                   cirIn: 200000000
-#                   cirOut: 12000000
-#                   tags:
-#                     - verizon
-#                   metadata:
-#                     sec.zone.name: internet
-#               ```
-#           userdef_config_local_path:
-#             type: str
-#             default: null
-#             description: Local path for user-defined netif metadata config.
-
-
-# netobserv_flow_config_processor
-#           enrich_samplerate_userdef_config_values:
-#             type: dict
-#             default: {}
-#             description: |
-#               Inline user-defined sample rate config values. Example:
-#               ```yaml
-#               192.0.2.1: 1024
-#               192.0.2.2: 512
-#               192.0.2.0-192.0.2.255: 256
-#               192.0.2.0/24: 128
-
-#               # global sample rate
-#               "0.0.0.0/0": 56
-#               ```

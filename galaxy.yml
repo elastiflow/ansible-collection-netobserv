@@ -20,7 +20,7 @@ dependencies:
   ansible.posix: ">=2.0.0,<3.0.0"
 
 homepage: https://www.elastiflow.com/
-documentation: https://www.elastiflow.com/docs
+documentation: https://docs.elastiflow.com/
 repository: https://github.com/elastiflow/ansible-collection-netobserv
 issues: https://github.com/elastiflow/ansible-collection-netobserv/issues
 
