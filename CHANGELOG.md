@@ -1,3 +1,13 @@
+## [v0.5.0] - 2026-01-06
+
+### Features
+
+- Refactor NetObserv Flow configuration (breaking) (#29)
+
+[v0.4.1..v0.5.0](https://github.com/elastiflow/ansible-collection-netobserv/compare/v0.4.1...v0.5.0)
+
+
+
 ## [v0.4.1] - 2025-11-21
 
 ### Bug Fixes
