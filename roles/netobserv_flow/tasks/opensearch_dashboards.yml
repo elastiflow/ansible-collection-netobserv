@@ -12,22 +12,22 @@
   become: false
   delegate_to: localhost
   ansible.builtin.get_url:
-    url: "{{ netobserv_flow_dashboards.opensearch.url }}"
+    url: "{{ netobserv_flow_output_opensearch.dashboards.url }}"
     dest: "{{ _netobserv_flow_opensearch_dashboards_dir.path }}/"
     mode: "0644"
   register: _netobserv_flow_opensearch_dashboards_file
 - name: Provision OpenSearch Dashboards
   ansible.builtin.uri:
-    url: "{{ netobserv_flow_dashboards.opensearch.dashboards_url }}/api/saved_objects/_import?overwrite={{ netobserv_flow_dashboards.opensearch.override }}"
+    url: "{{ netobserv_flow_output_opensearch.dashboards.dashboards_url }}/api/saved_objects/_import?overwrite={{ netobserv_flow_output_opensearch.dashboards.override }}" # noqa: yaml[line-length]
     method: POST
     status_code: 200
-    validate_certs: "{{ netobserv_flow_dashboards.opensearch.tls.validate_certs }}"
-    ca_path: "{{ netobserv_flow_dashboards.opensearch.tls.ca_path }}"
-    client_cert: "{{ netobserv_flow_dashboards.opensearch.tls.client_cert }}"
-    client_key: "{{ netobserv_flow_dashboards.opensearch.tls.client_key }}"
+    validate_certs: "{{ netobserv_flow_output_opensearch.dashboards.tls.validate_certs }}"
+    ca_path: "{{ netobserv_flow_output_opensearch.dashboards.tls.ca_path }}"
+    client_cert: "{{ netobserv_flow_output_opensearch.dashboards.tls.client_cert }}"
+    client_key: "{{ netobserv_flow_output_opensearch.dashboards.tls.client_key }}"
     force_basic_auth: true
-    user: "{{ netobserv_flow_config_output_opensearch.username }}"
-    password: "{{ netobserv_flow_config_output_opensearch.password }}"
+    user: "{{ netobserv_flow_output_opensearch.username }}"
+    password: "{{ netobserv_flow_output_opensearch.password }}"
     headers:
       osd-xsrf: "true"
       securitytenant: "global"

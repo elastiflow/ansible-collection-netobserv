@@ -1,0 +1,9 @@
+# Additional options are name, vlan, tags and metadata.
+192.0.2.192/26:
+  name: atlanta_guest_wifi
+  tags:
+    - wifi
+    - dhcp
+  metadata:
+    dhcp.pool.name: atlanta_guest_wifi
+    .site.id: atlanta
