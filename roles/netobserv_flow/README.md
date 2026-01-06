@@ -105,7 +105,7 @@ tasks:
 
 ### v0.4.1 -> v0.5.x
 
-Refer to the [Pull Request]() for the full list of changes.
+Refer to the [Pull Request](https://github.com/elastiflow/ansible-collection-netobserv/pull/29) for the full list of changes.
 
 - License needs to be explicitly accepted via `netobserv_flow_config_values` (`netobserv_flow_license.accepted`) is removed
   ```yaml
@@ -117,8 +117,8 @@ Refer to the [Pull Request]() for the full list of changes.
 - Fill all values that are not present in the "complex" Ansible vars to the `netobserv_flow_config_values` dict.
 
 Please see the example playbooks changes for reference:
-- [Example ElasticSearch playbook]()
-- [Example OpensearchSearch playbook]()
+- [Example ElasticSearch playbook](https://github.com/elastiflow/ansible-collection-netobserv/pull/29/changes#diff-34614fb12163c3dbf55c7dcc616780f464787d64c58e5dade1f45f10c24c7641)
+- [Example OpensearchSearch playbook](https://github.com/elastiflow/ansible-collection-netobserv/pull/29/changes#diff-858969464991d766dda4f3ed2f0503b0bb0b17dac21f331e2e2c0174ff5a0909)
 
 The safest way to upgrade is:
 1. Backup `/etc/elastiflow` directory
