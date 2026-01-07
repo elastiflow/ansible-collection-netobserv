@@ -22,7 +22,7 @@
     method: POST
     status_code: 200
     validate_certs: "{{ netobserv_flow_output_opensearch.dashboards.tls.validate_certs }}"
-    ca_path: "{{ netobserv_flow_output_opensearch.dashboards.tls.ca_path }}"
+    ca_path: "{{ netobserv_flow_output_opensearch.tls.ca_cert_filepath }}"
     client_cert: "{{ netobserv_flow_output_opensearch.dashboards.tls.client_cert }}"
     client_key: "{{ netobserv_flow_output_opensearch.dashboards.tls.client_key }}"
     force_basic_auth: true

@@ -51,8 +51,6 @@ __netobserv_flow_output_elasticsearch:
     tls:
       # Validate TLS certificates.
       validate_certs: false
-      # Path to CA certificate.
-      ca_path: null
       # Path to client certificate.
       client_cert: null
       # Path to client key.
@@ -93,8 +91,6 @@ __netobserv_flow_output_opensearch:
     tls:
       # Validate TLS certificates.
       validate_certs: false
-      # Path to CA certificate.
-      ca_path: null
       # Path to client certificate.
       client_cert: null
       # Path to client key.
