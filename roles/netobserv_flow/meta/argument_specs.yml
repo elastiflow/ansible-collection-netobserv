@@ -225,10 +225,6 @@ argument_specs:
                     type: bool
                     default: false
                     description: Validate TLS certificates.
-                  ca_path:
-                    type: str
-                    default: null
-                    description: Path to CA certificate.
                   client_cert:
                     type: str
                     default: null
@@ -315,10 +311,6 @@ argument_specs:
                     type: bool
                     default: false
                     description: Validate TLS certificates.
-                  ca_path:
-                    type: str
-                    default: null
-                    description: Path to CA certificate.
                   client_cert:
                     type: str
                     default: null

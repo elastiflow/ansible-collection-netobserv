@@ -184,7 +184,6 @@ The safest way to upgrade is:
 |Option|Description|Type|Required|Default|
 |---|---|---|---|---|
 | validate_certs | Validate TLS certificates. | bool | no | `False` |
-| ca_path | Path to CA certificate. | str | no | `None` |
 | client_cert | Path to client certificate. | str | no | `None` |
 | client_key | Path to client key. | str | no | `None` |
 
@@ -229,7 +228,6 @@ The safest way to upgrade is:
 |Option|Description|Type|Required|Default|
 |---|---|---|---|---|
 | validate_certs | Validate TLS certificates. | bool | no | `False` |
-| ca_path | Path to CA certificate. | str | no | `None` |
 | client_cert | Path to client certificate. | str | no | `None` |
 | client_key | Path to client key. | str | no | `None` |
 
