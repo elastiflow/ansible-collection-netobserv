@@ -15,13 +15,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Run ansible-lint
-        uses: ansible/ansible-lint@8ba9595a4acd1b906eb75568b34f6ef592cd1528
+        uses: ansible/ansible-lint@8ba9595a4acd1b906eb75568b34f6ef592cd1528 # v26.3.0
         with:
           requirements_file: "examples/requirements.yml"
       - name: Run markdownlint
-        uses: DavidAnson/markdownlint-cli2-action@992badcdf24e3b8eb7e87ff9287fe931bcb00c6e
+        uses: DavidAnson/markdownlint-cli2-action@992badcdf24e3b8eb7e87ff9287fe931bcb00c6e # v20.0.0
         with:
           globs: '**/*.md'
           config: .markdownlint-cli2.yaml
@@ -35,15 +35,15 @@ jobs:
         target-python-version: ["3.10", "3.11", "3.12"]
     steps:
       - name: Checkout
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Run sanity tests
-        uses: ansible-community/ansible-test-gh-action@d3a8ec7a59694e25e210fcd44738910149537f0e
+        uses: ansible-community/ansible-test-gh-action@d3a8ec7a59694e25e210fcd44738910149537f0e # v1.17.0
         with:
           ansible-core-version: ${{ matrix.ansible-core-version }}
           target-python-version: ${{ matrix.target-python-version }}
           testing-type: sanity
       - name: Run unit tests
-        uses: ansible-community/ansible-test-gh-action@d3a8ec7a59694e25e210fcd44738910149537f0e
+        uses: ansible-community/ansible-test-gh-action@d3a8ec7a59694e25e210fcd44738910149537f0e # v1.17.0
         with:
           ansible-core-version: ${{ matrix.ansible-core-version }}
           target-python-version: ${{ matrix.target-python-version }}
@@ -55,9 +55,9 @@ jobs:
   #   runs-on: ubuntu-latest
   #   steps:
   #     - name: Checkout
-  #       uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+ # v6.0.2
   #     - name: Set up Python 3
-  #       uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405
+ # v6.2.0
   #       with:
   #         python-version: '3.x'
   #     - name: Install test dependencies
