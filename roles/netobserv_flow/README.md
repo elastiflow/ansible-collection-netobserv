@@ -127,7 +127,7 @@ The safest way to upgrade is:
 |Option|Description|Type|Required|Default|
 |---|---|---|---|---|
 | netobserv_flow_install | Whether to install NetObserv Flow. | bool | no | `True` |
-| netobserv_flow_version | NetObserv Flow version to install. | str | no | `1:7.20.0-1` |
+| netobserv_flow_version | NetObserv Flow version to install. | str | no | `1:7.23.0-1` |
 | netobserv_flow_config_dir | Directory for NetObserv Flow configuration files. | str | no | `/etc/elastiflow` |
 | netobserv_flow_config_file | Main configuration file for NetObserv Flow. | str | no | `{{ netobserv_flow_config_dir }}/flowcoll.yml` |
 | netobserv_flow_license | License configuration for NetObserv Flow collector. See: https://docs.elastiflow.com/flowcoll/configuration/config_gen/license ***defaults_prefix:"__"*** | dict of `netobserv_flow_license` [options](#options-for-main--netobserv_flow_license) | no |  |
