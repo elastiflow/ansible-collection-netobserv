@@ -10,6 +10,10 @@ on:
       - main
 
 jobs:
+  mandatory_checks:
+    name: Security checks
+    uses: elastiflow/gha-reusable/.github/workflows/reusable_mandatory_checks.yml@v0
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
