@@ -26,3 +26,8 @@ repos:
     rev: v0.18.1
     hooks:
       - id: markdownlint-cli2
+  - repo: https://github.com/semgrep/pre-commit
+    rev: 'v1.163.0'
+    hooks:
+      - id: semgrep
+        entry: semgrep
