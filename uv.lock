@@ -22,7 +22,8 @@ name = "ansible-compat"
 version = "25.8.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "ansible-core" },
+    { name = "ansible-core", version = "2.19.13", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
+    { name = "ansible-core", version = "2.21.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
     { name = "jsonschema" },
     { name = "packaging" },
     { name = "pyyaml" },
@@ -35,8 +36,11 @@ wheels = [
 
 [[package]]
 name = "ansible-core"
-version = "2.19.1"
+version = "2.19.13"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version < '3.12'",
+]
 dependencies = [
     { name = "cryptography" },
     { name = "jinja2" },
@@ -44,9 +48,28 @@ dependencies = [
     { name = "pyyaml" },
     { name = "resolvelib" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/4e/5e/c3333cdf0a6c0512a272734f0b91602a3686ad119d75c8d22f16fd513706/ansible_core-2.19.1.tar.gz", hash = "sha256:affd33b38d32b57cfc2cd6daf3aafcb384297039e4c5600196a2ee9aa027b75d", size = 3401547, upload-time = "2025-08-25T19:18:24.129Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/70/10/fb022a98682af71ec7b21ea24dab3103af1c85ae884ac21c9e3f0a2ded9b/ansible_core-2.19.13.tar.gz", hash = "sha256:3711fc5db7a265f93b34cf3f0db8b9708fb0eec12211a6be32ed6edd6c68044b", size = 3432103, upload-time = "2026-09-08T16:47:54.44Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/37/9d/422fc6efbadad60ab3d9c18edc52c43fb7bc4677e83ce0908def8dd7bea5/ansible_core-2.19.1-py3-none-any.whl", hash = "sha256:ef42569dc9bb1641ef1adcc7e5bc6b4567b7383c7daf46d3a1885117c93a83e4", size = 2412931, upload-time = "2025-08-25T19:18:22.514Z" },
+    { url = "https://files.pythonhosted.org/packages/84/ed/ab619a69824b22e6b6262c4ba5819d2745f5d9255561eea7f23f42c91a43/ansible_core-2.19.13-py3-none-any.whl", hash = "sha256:d4a256d0891b3cb31ddbc9ff8a7bf6fd359379007799c54390b66b8f94fed3d3", size = 2426742, upload-time = "2026-09-08T16:47:52.556Z" },
+]
+
+[[package]]
+name = "ansible-core"
+version = "2.21.4"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.12'",
+]
+dependencies = [
+    { name = "cryptography" },
+    { name = "jinja2" },
+    { name = "packaging" },
+    { name = "pyyaml" },
+    { name = "resolvelib" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/df/72/2152230f254bd9c6b892f95d6d291a96fd09b632ce01c6b406eda8c5cd75/ansible_core-2.21.4.tar.gz", hash = "sha256:81a9329f4f12cfa5008dcab5d1bf23ae69b7effc08c0f00048ab2461147ae95a", size = 3394492, upload-time = "2026-09-08T16:51:48.569Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a1/05/d4e28474dd027db4d60fef2422cf6bc80df100ab32e5fa5e7aad898ffd55/ansible_core-2.21.4-py3-none-any.whl", hash = "sha256:ebe74d9c8fadcb41ad2151e031bf1e785e3098aaa015019b4e19a0a96f0dcc4f", size = 2457154, upload-time = "2026-09-08T16:51:47.044Z" },
 ]
 
 [[package]]
@@ -55,7 +78,8 @@ version = "25.9.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "ansible-compat" },
-    { name = "ansible-core" },
+    { name = "ansible-core", version = "2.19.13", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
+    { name = "ansible-core", version = "2.21.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
     { name = "black" },
     { name = "cffi" },
     { name = "cryptography" },
@@ -387,7 +411,8 @@ source = { virtual = "." }
 [package.dev-dependencies]
 dev = [
     { name = "aar-doc" },
-    { name = "ansible-core" },
+    { name = "ansible-core", version = "2.19.13", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
+    { name = "ansible-core", version = "2.21.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
     { name = "ansible-lint" },
     { name = "pytest" },
     { name = "pytest-cov" },
