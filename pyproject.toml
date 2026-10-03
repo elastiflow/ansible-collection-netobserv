@@ -32,4 +32,4 @@ ignore = [
 ]
 
 [tool.uv.sources]
-aar-doc = { git = "https://github.com/telekom-mms/Automated-Ansible-Role-Documentation.git", rev = "main" }
+aar-doc = { git = "https://github.com/telekom-mms/Automated-Ansible-Role-Documentation.git", rev = "55b143957012173d3bf5a91fd96713b06e06985d" }
