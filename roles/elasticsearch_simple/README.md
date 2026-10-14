@@ -1,9 +1,7 @@
 <!-- BEGIN_ANSIBLE_DOCS -->
 # Ansible Role: elastiflow.netobserv.elasticsearch_simple
-Version: 0.6.0
-
+Version: 0.7.0
 Ansible collection for ElastiFlow NetObserv roles and playbooks.
-
 
 ## Requirements
 
@@ -13,7 +11,6 @@ Ansible collection for ElastiFlow NetObserv roles and playbooks.
 | Ubuntu | jammy, noble |
 
 ## Role Arguments
-
 
 ### Entrypoint: main
 
@@ -28,14 +25,13 @@ Ansible collection for ElastiFlow NetObserv roles and playbooks.
 | elasticsearch_kibana_mem_limit | Kibana container memory limit | str | no | `1g` |
 | elasticsearch_initial_password | ElasticSearch initial password for the default admin `elastic` user | str | no | `Strong1pass!` |
 
-
-
 ## Dependencies
+
 None.
 
 ## Example Playbook
 
-```
+```yaml
 - hosts: all
   tasks:
     - name: Importing role: elastiflow.netobserv.elasticsearch_simple
@@ -49,6 +45,7 @@ None.
 Apache-2.0
 
 ## Author and Project Information
+
 ElastiFlow Engineering Team <engineering@elastiflow.com>
 
 <!-- END_ANSIBLE_DOCS -->

@@ -1,9 +1,7 @@
 <!-- BEGIN_ANSIBLE_DOCS -->
 # Ansible Role: elastiflow.netobserv.netobserv_flow
-Version: 0.6.0
-
+Version: 0.7.0
 NetObserv Flow role for ElastiFlow - installs and configures the flow collector.
-
 
 ## Requirements
 
@@ -13,7 +11,6 @@ NetObserv Flow role for ElastiFlow - installs and configures the flow collector.
 | Ubuntu | jammy, noble |
 
 ## Role Arguments
-
 
 ### Entrypoint: main
 
@@ -242,14 +239,13 @@ The safest way to upgrade is:
 | net.ipv4.udp_rmem_min | Minimum receive buffer size for UDP sockets. | int | no | `131072` |
 | net.ipv4.udp_mem | Memory usage limits for UDP. | str | no | `2097152 4194304 8388608` |
 
-
-
 ## Dependencies
+
 - {'role': 'elastiflow.netobserv._collector_install', 'vars': {'version': '{{ netobserv_flow_version }}', 'collector_type': 'netobserv-flow'}, 'when': 'netobserv_flow_install'}
 
 ## Example Playbook
 
-```
+```yaml
 - hosts: all
   tasks:
     - name: Importing role: elastiflow.netobserv.netobserv_flow
@@ -263,6 +259,7 @@ The safest way to upgrade is:
 Apache-2.0
 
 ## Author and Project Information
+
 ElastiFlow Engineering Team <engineering@elastiflow.com>
 
 <!-- END_ANSIBLE_DOCS -->

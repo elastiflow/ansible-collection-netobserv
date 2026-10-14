@@ -1,9 +1,7 @@
 <!-- BEGIN_ANSIBLE_DOCS -->
 # Ansible Role: elastiflow.netobserv._collector_install
-Version: 0.6.0
-
+Version: 0.7.0
 Meta role for Elastiflow packages installation
-
 
 ## Requirements
 
@@ -13,7 +11,6 @@ Meta role for Elastiflow packages installation
 | Ubuntu | jammy, noble |
 
 ## Role Arguments
-
 
 ### Entrypoint: main
 
@@ -25,14 +22,13 @@ Meta role for Elastiflow packages installation
 | collector_type | Elastiflow package to install | str | no |  |
 | version | Elastiflow package version | str | no |  |
 
-
-
 ## Dependencies
+
 None.
 
 ## Example Playbook
 
-```
+```yaml
 - hosts: all
   tasks:
     - name: Importing role: elastiflow.netobserv._collector_install
@@ -46,6 +42,7 @@ None.
 Apache-2.0
 
 ## Author and Project Information
+
 ElastiFlow Engineering Team <engineering@elastiflow.com>
 
 <!-- END_ANSIBLE_DOCS -->
