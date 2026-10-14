@@ -1,3 +1,13 @@
+## [v0.8.0] - 2026-10-14
+
+### Features
+
+- Bump netobserv flow default to 7.27.0 (#57)
+
+[v0.7.0..v0.8.0](https://github.com/elastiflow/ansible-collection-netobserv/compare/v0.7.0...v0.8.0)
+
+
+
 ## [v0.7.0] - 2026-10-12
 
 ### Bug Fixes
